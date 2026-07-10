@@ -1,0 +1,121 @@
+/* Treasora Academy — shared site styles */
+:root {
+  --black: #020202;
+  --black2: #070604;
+  --gold: #d4af37;
+  --gold2: #ffe37a;
+  --gold3: #a87518;
+  --silver: #f5f1e8;
+  --muted: #b7aea0;
+  --line: rgba(212, 175, 55, 0.28);
+}
+
+header {
+  position: relative;
+  z-index: 20;
+  background: rgba(2, 2, 2, 0.9);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.16);
+}
+
+.header-inner {
+  padding: 16px 0 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo img {
+  display: block;
+  width: 235px;
+  max-width: 76vw;
+  height: auto;
+  margin: 0 auto;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.12));
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+nav a {
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 10px 14px;
+  min-height: 40px;
+  font-size: 14px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a.current {
+  border-color: var(--line);
+  color: var(--gold2);
+}
+
+nav .pro {
+  color: #050505;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold2), var(--gold), var(--gold3));
+  border: 0;
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.16);
+}
+
+nav .signin {
+  color: var(--gold2);
+  border-color: var(--line);
+}
+
+footer {
+  border-top: 1px solid rgba(212, 175, 55, 0.18);
+  padding: 34px 22px 40px;
+  text-align: center;
+  background: #030303;
+  color: var(--muted);
+}
+
+footer p {
+  max-width: 620px;
+  margin: 8px auto;
+  color: rgba(245, 241, 232, 0.62);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+footer a {
+  color: var(--gold2);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.dominar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: inherit;
+  display: block;
+}
+
+.card .icon img,
+.icon img.dominar-card-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
