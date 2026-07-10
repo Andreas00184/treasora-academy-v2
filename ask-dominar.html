@@ -48,9 +48,8 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 .messages-inner{width:min(880px,calc(100% - 34px));margin:auto;display:flex;flex-direction:column;gap:18px}
 
 .empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 12px;gap:18px}
-.dominar-orb{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;color:var(--gold2);position:relative;background:#000 url('assets/dominar-icon-v5.png') center/cover no-repeat;border:1px solid var(--line);box-shadow:0 0 30px rgba(212,175,55,.18);overflow:hidden}
-.dominar-orb::after{content:'';position:absolute;bottom:0;left:0;right:0;height:32%;border-radius:inherit;background:linear-gradient(transparent,#000 55%);pointer-events:none}
-.dominar-orb img{display:none}
+.dominar-orb{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:34px;color:var(--gold2);background:radial-gradient(circle at 35% 30%,rgba(212,175,55,.22),rgba(255,255,255,.02));border:1px solid var(--line);box-shadow:0 0 30px rgba(212,175,55,.18);overflow:hidden}
+.dominar-orb img{width:100%;height:100%;object-fit:contain;display:block}
 .empty-state h1{font-size:28px;letter-spacing:-.8px;font-weight:900}
 .empty-state .gold{background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent}
 .empty-state p{color:var(--muted);font-size:15px;max-width:440px}
@@ -64,7 +63,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 .msg.dominar .bubble{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.10);border-top-left-radius:6px}
 .msg.user .bubble{background:linear-gradient(135deg,rgba(212,175,55,.20),rgba(168,117,24,.12));border:1px solid var(--line);border-top-right-radius:6px;color:var(--silver)}
 .avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-size:15px;color:var(--gold2);background:rgba(212,175,55,.10);border:1px solid var(--line);margin-top:2px;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:contain;object-position:center 30%;display:block}
+.avatar img{width:100%;height:100%;object-fit:contain;display:block}
 .msg-name{font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:700;letter-spacing:.02em}
 
 .attach-preview-bubble{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:14px;padding:8px 10px;margin-bottom:8px;background:rgba(0,0,0,.25);font-size:13px}
@@ -109,7 +108,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 <body>
 <header>
   <div class="container header-inner">
-    <a class="logo" href="index.html" aria-label="Treasora Academy Home"><img src="assets/treasora-logo.png" "Treasora Academy logo"></a>
+    <a class="logo" href="index.html" aria-label="Treasora Academy Home"><img src="assets/treasora-logo.png" alt="Treasora Academy logo"></a>
     <nav aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="learn.html">Learn</a>
@@ -134,7 +133,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
   <div class="messages" id="messages">
     <div class="messages-inner" id="messages-inner">
       <div class="empty-state" id="empty-state">
-        <div class="dominar-orb" role="img" aria-label="Dominar"></div>
+        <div class="dominar-orb"><img src="assets/dominar-icon-v5.png" alt="Dominar"></div>
         <h1>Hi, I'm <span class="gold">Dominar.</span></h1>
         <p>Ask me anything about money, investing, or your goals. You can type, talk, or attach a document or screenshot for me to look at.</p>
         <div class="suggest-row">
@@ -320,7 +319,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
     if (role === 'dominar') {
       var av = document.createElement('div');
       av.className = 'avatar';
-      av.innerHTML = '<img src="assets/dominar-icon-v5.png" alt="Dominar" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;border-radius:inherit;display:block">';
+      av.innerHTML = '<img src="assets/dominar-icon-v5.png" alt="Dominar">';
       wrap.appendChild(av);
     }
 
@@ -368,7 +367,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
     wrap.id = 'typing-indicator';
     var av = document.createElement('div');
     av.className = 'avatar';
-    av.innerHTML = '<img src="assets/dominar-icon-v5.png" alt="Dominar" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;border-radius:inherit;display:block">';
+    av.innerHTML = '<img src="assets/dominar-icon-v5.png" alt="Dominar" class="dominar-img">';
     wrap.appendChild(av);
     var bubble = document.createElement('div');
     bubble.className = 'bubble';

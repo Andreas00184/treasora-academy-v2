@@ -106,9 +106,7 @@ footer a:hover {
 .dominar-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-  border-radius: inherit;
+  object-fit: contain;
   display: block;
 }
 
@@ -116,6 +114,6 @@ footer a:hover {
 .icon img.dominar-card-icon {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: inherit;
 }
