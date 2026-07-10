@@ -102,18 +102,3 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
-
-.dominar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.card .icon img,
-.icon img.dominar-card-icon {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: inherit;
-}
