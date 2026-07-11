@@ -32,8 +32,13 @@
     }
 
     var kicker = document.querySelector(".hero .kicker");
-    if (kicker && profile && profile.is_pro) {
+    if (kicker && profile && (profile.is_pro || profile.current_plan === "pro")) {
       kicker.innerHTML = '<span class="dot"></span> Pro Member';
+    }
+
+    if (global.TreasoraBilling) {
+      global.TreasoraBilling.showUpgradeBanner();
+      await global.TreasoraBilling.loadDashboardBilling(profile);
     }
 
     var completed = global.TreasoraLessonProgress.countCompleted(progress);

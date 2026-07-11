@@ -30,6 +30,7 @@
     functionUrl: functionUrl,
     dominarChatUrl: functionUrl("dominar-chat"),
     checkoutUrl: functionUrl("create-checkout-session"),
+    billingPortalUrl: functionUrl("create-billing-portal-session"),
   };
 
   // Back-compat for inline scripts that expect these globals
@@ -39,4 +40,5 @@
   global.SUPABASE_ANON_KEY = key;
   global.DOMINAR_FUNCTION_URL = functionUrl("dominar-chat");
   global.CHECKOUT_FUNCTION_URL = functionUrl("create-checkout-session");
+  global.BILLING_PORTAL_FUNCTION_URL = functionUrl("create-billing-portal-session");
 })(window);

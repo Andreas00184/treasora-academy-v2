@@ -17,16 +17,13 @@ Deno.serve(async (req) => {
     }
 
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-    const priceId = Deno.env.get("STRIPE_PRO_PRICE_ID");
     const siteUrl = Deno.env.get("SITE_URL") || "https://treasora.academy";
 
-    if (!stripeKey || !priceId) {
-      return new Response(
-        JSON.stringify({
-          error: "Stripe not configured. Set STRIPE_SECRET_KEY and STRIPE_PRO_PRICE_ID in Edge Function secrets.",
-        }),
-        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-      );
+    if (!stripeKey) {
+      return new Response(JSON.stringify({ error: "Stripe not configured" }), {
+        status: 503,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -47,37 +44,29 @@ Deno.serve(async (req) => {
 
     const { data: profile } = await admin
       .from("profiles")
-      .select("stripe_customer_id, current_plan, subscription_status")
+      .select("stripe_customer_id")
       .eq("id", user.id)
       .maybeSingle();
 
-    const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
-    const body = await req.json().catch(() => ({}));
-    const successUrl = body.successUrl || `${siteUrl}/dashboard.html?upgraded=1`;
-    const cancelUrl = body.cancelUrl || `${siteUrl}/join-pro.html?canceled=1`;
-
-    const sessionParams: Stripe.Checkout.SessionCreateParams = {
-      mode: "subscription",
-      client_reference_id: user.id,
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-      metadata: { supabase_user_id: user.id },
-      subscription_data: {
-        metadata: { supabase_user_id: user.id },
-      },
-      allow_promotion_codes: true,
-    };
-
-    if (profile?.stripe_customer_id) {
-      sessionParams.customer = profile.stripe_customer_id;
-    } else {
-      sessionParams.customer_email = user.email ?? undefined;
+    if (!profile?.stripe_customer_id) {
+      return new Response(
+        JSON.stringify({
+          error: "No billing account found. Subscribe to Pro first, then you can manage your subscription here.",
+        }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
     }
 
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    const body = await req.json().catch(() => ({}));
+    const returnUrl = body.returnUrl || `${siteUrl}/dashboard.html`;
 
-    return new Response(JSON.stringify({ url: session.url }), {
+    const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
+    const portalSession = await stripe.billingPortal.sessions.create({
+      customer: profile.stripe_customer_id,
+      return_url: returnUrl,
+    });
+
+    return new Response(JSON.stringify({ url: portalSession.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e) {
