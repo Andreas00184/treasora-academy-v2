@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <link rel="stylesheet" href="css/site.css">
 <title data-i18n="joinPro.title">Treasora Academy — Join Pro</title>
 <style>
@@ -58,6 +61,15 @@ nav .pro.current{outline:2px solid var(--gold2);outline-offset:2px}
 .price-savings{color:var(--gold2);font-size:13px;font-weight:800;margin-bottom:18px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;font-weight:950;border:0;border-radius:18px;min-height:58px;padding:16px 18px;font-size:16.5px;cursor:pointer;box-shadow:0 0 26px rgba(212,175,55,.22)}
 .btn-manage{display:none;margin:0 0 24px}
+
+/* PRICING BANNER — visible immediately on load (mobile + desktop) */
+.pricing-banner{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 8px}
+.pricing-banner-item{border:1px solid var(--line);border-radius:18px;padding:16px 14px;text-align:center;background:rgba(212,175,55,.06)}
+.pricing-banner-item.featured{border-color:rgba(212,175,55,.5);background:linear-gradient(180deg,rgba(212,175,55,.14),rgba(255,255,255,.02))}
+.pricing-banner-item .pb-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gold2);margin-bottom:6px}
+.pricing-banner-item .pb-price{font-size:22px;font-weight:900;line-height:1.15}
+.pricing-banner-item .pb-unit{font-size:13px;color:var(--muted);font-weight:700;margin-top:4px}
+@media(max-width:640px){.pricing-banner{grid-template-columns:1fr}}
 .btn-secondary{display:inline-flex;align-items:center;justify-content:center;width:100%;border:1px solid rgba(255,255,255,.16);border-radius:18px;min-height:52px;padding:14px 18px;background:transparent;color:var(--muted);font-weight:700;font-size:14.5px;margin-top:12px}
 .btn-secondary:hover{border-color:var(--line);color:var(--gold2)}
 .trust-line{margin-top:18px;font-size:12.5px;color:var(--muted)}
@@ -107,6 +119,21 @@ footer p{color:var(--muted);font-size:13px}
 </header>
 
 <main>
+  <div class="container" style="padding-top:20px">
+    <div class="pricing-banner" id="pricing">
+      <div class="pricing-banner-item">
+        <div class="pb-label" data-i18n="joinPro.monthlyPlan">Monthly Plan</div>
+        <div class="pb-price">$14.99</div>
+        <div class="pb-unit" data-i18n="joinPro.monthlyPriceNote">USD per month</div>
+      </div>
+      <div class="pricing-banner-item featured">
+        <div class="pb-label" data-i18n="joinPro.annualPlan">Annual Plan</div>
+        <div class="pb-price">$149.90</div>
+        <div class="pb-unit" data-i18n="joinPro.annualPriceNote">USD per year</div>
+      </div>
+    </div>
+  </div>
+
   <div class="container hero">
     <div class="kicker"><span class="dot"></span> Treasora Pro</div>
     <h1 data-i18n-html="joinPro.heroTitleHtml">Everything unlocked. <span class="gold">Nothing forgotten.</span></h1>
