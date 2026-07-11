@@ -3,6 +3,7 @@
  */
 (function (global) {
   async function load() {
+    if (global.TreasoraI18n) await global.TreasoraI18n.init();
     if (!global.TreasoraLessonProgress) return;
 
     var progress = [];
@@ -16,7 +17,9 @@
     var fill = document.getElementById("overall-progress-fill");
     var label = document.getElementById("overall-progress-label");
     if (fill) fill.style.width = Math.round((count / 20) * 100) + "%";
-    if (label) label.textContent = TreasoraI18n.t("learn.progressLabel", { count: count });
+    if (label && global.TreasoraI18n) {
+      label.textContent = global.TreasoraI18n.t("learn.progressLabel", { count: count });
+    }
 
     document.querySelectorAll(".lesson-row").forEach(function (row) {
       var href = row.getAttribute("href") || "";
@@ -29,10 +32,15 @@
         var numEl = row.querySelector(".lesson-num");
         if (numEl) numEl.textContent = "✓";
         var arrow = row.querySelector(".lesson-arrow");
-        if (arrow) arrow.textContent = TreasoraI18n ? TreasoraI18n.t("common.done") : "Done";
+        if (arrow) {
+          arrow.textContent = global.TreasoraI18n
+            ? global.TreasoraI18n.t("common.done")
+            : "Done";
+        }
       }
     });
   }
 
   document.addEventListener("DOMContentLoaded", load);
+  document.addEventListener("treasora:locale-changed", load);
 })(window);

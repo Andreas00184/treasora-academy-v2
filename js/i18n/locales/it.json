@@ -209,14 +209,16 @@
   "learn": {
     "title": "Impara — Treasora Academy",
     "heading": "Programma Foundation",
-    "lead": "20 lezioni per principianti — dalle basi del denaro alle prime decisioni di investimento.",
+    "headingHtml": "20 lezioni. <span class=\"gold\">Un percorso chiaro.</span>",
+    "kicker": "Programma Foundation · Gratis",
+    "lead": "Lezioni brevi e semplici — da \"Cos'è il denaro?\" al tuo percorso verso la libertà finanziaria. Nessuna pressione a seguire l'ordine.",
     "progressLabel": "{{count}} lezioni su 20 completate",
     "phase1": "Fase 1 · Capire il denaro e la mentalità",
     "phase2": "Fase 2 · Costruire basi finanziarie",
     "phase3": "Fase 3 · Capire i mercati finanziari",
     "phase4": "Fase 4 · Costruire ricchezza e prossimi passi",
     "upgradeTitle": "Hai finito il Foundation, o conosci già le basi?",
-    "upgradeBody": "Pro sblocca lezioni avanzate, roadmap personalizzata, simulatore di portafoglio e Dominar illimitato — non serve finire tutte e 20 le lezioni se sei pronto.",
+    "upgradeBody": "Pro sblocca Dominar illimitato, memoria completa e roadmap personalizzata — con lezioni avanzate e strumenti in arrivo presto.",
     "explorePro": "Scopri Treasora Pro"
   },
   "joinPro": {
@@ -299,12 +301,12 @@
     "pricingAnnualNote": "USD all'anno",
     "pricingAnnualSavings": "Risparmia ~17% rispetto al mensile",
     "pricingBestValue": "Miglior valore",
-    "pricingProFeature1": "Tutte le lezioni: da principiante a professionale",
+    "pricingProFeature1": "20 lezioni Foundation + libreria ampliata (in arrivo)",
     "pricingProFeature2": "Dominar illimitato, voce e testo",
-    "pricingProFeature3": "Memoria completa di Dominar e roadmap personalizzata pluriennale",
-    "pricingProFeature4": "Brief di mercato settimanale di Dominar, basato sul tuo Passport",
-    "pricingProFeature5": "Simulatore di portafoglio: azioni, ETF, obbligazioni, crypto, immobiliare",
-    "pricingProFeature6": "Sistema di certificazione: da principiante a professionale",
+    "pricingProFeature3": "Memoria completa di Dominar e roadmap personalizzata",
+    "pricingProFeature4": "Brief di mercato settimanale di Dominar (in arrivo)",
+    "pricingProFeature5": "Simulatore di portafoglio (in arrivo)",
+    "pricingProFeature6": "Monitoraggio progressi a vita sulla dashboard",
     "pricingMonthlyCta": "Inizia Pro mensile",
     "pricingAnnualCta": "Inizia Pro annuale"
   }

@@ -78,9 +78,10 @@ footer p{color:var(--muted);font-size:13px}
       <a href="ask-dominar.html" data-i18n="nav.askDominar">Ask Dominar</a>
       <a href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
       <a href="passport.html" data-i18n="nav.passport">Financial Passport</a>
+      <a href="settings.html" data-i18n="nav.settings">Settings</a>
       <a href="join-pro.html" class="pro" data-i18n="nav.joinPro">Join Pro</a>
       <a href="sign-in.html" class="signin" data-i18n="nav.signIn">Sign In</a>
-      <a href="contact.html" class="current data-i18n="nav.contact">Contact</a>
+      <a href="contact.html" class="current" data-i18n="nav.contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -94,7 +95,7 @@ footer p{color:var(--muted);font-size:13px}
 
   <div class="container">
     <div class="card contact-card">
-      <form action="thank-you.html">
+      <form id="contact-form">
         <label for="name">Your Name</label>
         <input id="name" name="name" type="text" placeholder="Full name" required>
 
@@ -134,5 +135,24 @@ footer p{color:var(--muted);font-size:13px}
 
 <script src="js/i18n/i18n.js"></script>
 <script src="js/i18n-init.js"></script>
+<script>
+(function () {
+  var form = document.getElementById("contact-form");
+  if (!form) return;
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("name").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var topic = document.getElementById("topic").value;
+    var message = document.getElementById("message").value.trim();
+    var subject = encodeURIComponent("Treasora Academy: " + topic);
+    var body = encodeURIComponent(
+      "Name: " + name + "\nEmail: " + email + "\nTopic: " + topic + "\n\n" + message
+    );
+    window.location.href =
+      "mailto:support@treasoraacademy.com?subject=" + subject + "&body=" + body;
+  });
+})();
+</script>
 </body>
 </html>

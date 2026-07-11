@@ -209,14 +209,16 @@
   "learn": {
     "title": "Aprender — Treasora Academy",
     "heading": "Programa Foundation",
-    "lead": "20 lecciones para principiantes — desde lo básico del dinero hasta tus primeras decisiones de inversión.",
+    "headingHtml": "20 lecciones. <span class=\"gold\">Un camino claro.</span>",
+    "kicker": "Programa Foundation · Gratis",
+    "lead": "Lecciones cortas y sencillas — desde \"¿Qué es el dinero?\" hasta tu camino hacia la libertad financiera. Sin presión por seguir el orden.",
     "progressLabel": "{{count}} de 20 lecciones completadas",
     "phase1": "Fase 1 · Entender el dinero y la mentalidad",
     "phase2": "Fase 2 · Construir bases financieras",
     "phase3": "Fase 3 · Entender los mercados financieros",
     "phase4": "Fase 4 · Construir riqueza y próximos pasos",
     "upgradeTitle": "¿Terminaste el Foundation o ya dominas lo básico?",
-    "upgradeBody": "Pro desbloquea lecciones avanzadas, hoja de ruta personalizada, simulador de cartera y Dominar ilimitado — no necesitas las 20 lecciones si ya estás listo.",
+    "upgradeBody": "Pro desbloquea Dominar ilimitado, memoria completa y hoja de ruta personalizada — con lecciones avanzadas y herramientas en camino.",
     "explorePro": "Explorar Treasora Pro"
   },
   "joinPro": {
@@ -299,12 +301,12 @@
     "pricingAnnualNote": "USD al año",
     "pricingAnnualSavings": "Ahorra ~17% frente al plan mensual",
     "pricingBestValue": "Mejor valor",
-    "pricingProFeature1": "Todas las lecciones: de principiante a profesional",
+    "pricingProFeature1": "20 lecciones Foundation + biblioteca ampliada (en camino)",
     "pricingProFeature2": "Dominar ilimitado, voz y texto",
-    "pricingProFeature3": "Memoria completa de Dominar y hoja de ruta personalizada plurianual",
-    "pricingProFeature4": "Informe semanal de mercado de Dominar, basado en tu Passport",
-    "pricingProFeature5": "Simulador de cartera: acciones, ETF, bonos, cripto, bienes raíces",
-    "pricingProFeature6": "Sistema de certificación: de principiante a profesional",
+    "pricingProFeature3": "Memoria completa de Dominar y hoja de ruta personalizada",
+    "pricingProFeature4": "Informe semanal de mercado de Dominar (próximamente)",
+    "pricingProFeature5": "Simulador de cartera (próximamente)",
+    "pricingProFeature6": "Seguimiento de progreso de por vida en tu panel",
     "pricingMonthlyCta": "Empezar Pro mensual",
     "pricingAnnualCta": "Empezar Pro anual"
   }

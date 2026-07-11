@@ -82,10 +82,11 @@ footer p{color:var(--muted);font-size:13px}
     <a class="logo" href="index.html" aria-label="Treasora Academy Home"><img src="assets/treasora-logo.png" alt="Treasora Academy logo"></a>
     <nav data-i18n-aria="nav.mainNav" aria-label="Main navigation">
       <a href="index.html" data-i18n="nav.home">Home</a>
-      <a href="learn.html" class="current data-i18n="nav.learn">Learn</a>
+      <a href="learn.html" class="current" data-i18n="nav.learn">Learn</a>
       <a href="ask-dominar.html" data-i18n="nav.askDominar">Ask Dominar</a>
       <a href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
       <a href="passport.html" data-i18n="nav.passport">Financial Passport</a>
+      <a href="settings.html" data-i18n="nav.settings">Settings</a>
       <a href="join-pro.html" class="pro" data-i18n="nav.joinPro">Join Pro</a>
       <a href="sign-in.html" class="signin" data-i18n="nav.signIn">Sign In</a>
       <a href="contact.html" data-i18n="nav.contact">Contact</a>
@@ -95,9 +96,9 @@ footer p{color:var(--muted);font-size:13px}
 
 <main>
   <div class="container hero">
-    <div class="kicker"><span class="dot"></span> Foundation Program · Free</div>
-    <h1>20 lessons. <span class="gold">One clear path.</span></h1>
-    <p>Short, simple, confidence-building lessons — from "What is money?" to your own journey to financial freedom. No pressure to go in order.</p>
+    <div class="kicker"><span class="dot"></span> <span data-i18n="learn.kicker">Foundation Program · Free</span></div>
+    <h1 data-i18n-html="learn.headingHtml">20 lessons. <span class="gold">One clear path.</span></h1>
+    <p data-i18n="learn.lead">Short, simple, confidence-building lessons — from "What is money?" to your own journey to financial freedom. No pressure to go in order.</p>
 
     <div class="overall-progress">
       <div class="progress-track"><div class="progress-fill" id="overall-progress-fill"></div></div>
@@ -164,9 +165,9 @@ footer p{color:var(--muted);font-size:13px}
     </div>
 
     <div class="upgrade-cta">
-      <h2>Finished the Foundation, or already know your way around?</h2>
-      <p>Pro unlocks advanced lessons, a personalized roadmap, the Portfolio Simulator, and unlimited Dominar — no need to finish all 20 first if you're ready now.</p>
-      <a class="btn" href="join-pro.html">Explore Treasora Pro</a>
+      <h2 data-i18n="learn.upgradeTitle">Finished the Foundation, or already know your way around?</h2>
+      <p data-i18n="learn.upgradeBody">Pro unlocks unlimited Dominar, full memory, and your personalized roadmap — with advanced lessons and tools arriving soon.</p>
+      <a class="btn" href="join-pro.html" data-i18n="learn.explorePro">Explore Treasora Pro</a>
     </div>
 
   </div>
@@ -179,14 +180,13 @@ footer p{color:var(--muted);font-size:13px}
   </div>
 </footer>
 
+<script src="js/i18n/i18n.js"></script>
+<script src="js/i18n-init.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/supabase-client.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/lesson-progress.js"></script>
 <script src="js/learn.js"></script>
-
-<script src="js/i18n/i18n.js"></script>
-<script src="js/i18n-init.js"></script>
 </body>
 </html>

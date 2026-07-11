@@ -1,0 +1,8 @@
+# Local Supabase config (copy from js/config.example.js)
+js/config.js
+.env
+.env.local
+
+# OS / editor
+.DS_Store
+*.swp
