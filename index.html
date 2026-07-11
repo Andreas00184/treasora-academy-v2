@@ -245,11 +245,14 @@ footer p{max-width:720px;margin-left:auto!important;margin-right:auto!important;
 .price-card .price-savings:empty{display:none}
 .price-card ul{margin-top:16px;margin-bottom:22px;flex:1}
 .price-card .btn{width:100%}
-.plan-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:6px;border:1px solid rgba(212,175,55,.28);border-radius:16px;background:rgba(255,255,255,.03);margin-bottom:16px}
-.plan-toggle-btn{border:0;border-radius:12px;padding:12px 8px;background:transparent;color:var(--muted);font-weight:800;font-size:13px;cursor:pointer;line-height:1.3}
-.plan-toggle-btn.active{background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;box-shadow:0 0 18px rgba(212,175,55,.18)}
-.plan-toggle-btn .save-tag{display:block;font-size:10px;font-weight:900;margin-top:3px;color:var(--gold2)}
-.plan-toggle-btn.active .save-tag{color:#050505;opacity:.85}
+.price-card .plan-prices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.price-card .plan-price-box{border:1px solid rgba(212,175,55,.28);border-radius:16px;padding:14px 10px;text-align:center;background:rgba(255,255,255,.02)}
+.price-card .plan-price-box.featured{border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.08)}
+.price-card .plan-price-box .pl{font-size:11px;font-weight:800;color:var(--gold2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.price-card .plan-price-box .pa{font-size:26px;font-weight:900;line-height:1.1}
+.price-card .plan-price-box .pu{font-size:13px;color:var(--muted);margin-top:4px;font-weight:700}
+.price-card .plan-price-box .ps{font-size:11px;color:var(--gold2);font-weight:800;margin-top:6px}
+@media(max-width:920px){.price-card .plan-prices{grid-template-columns:1fr}}
 @media(max-width:920px){.pricing-grid{grid-template-columns:1fr}.price-card.featured{transform:none}}
 
 /* NEW: vision strip */
@@ -438,17 +441,19 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
  <div class="price-card featured" id="home-pro-pricing">
  <h3 data-i18n="home.pricingProTitle">Pro</h3>
  <div class="tier-tag" data-i18n="home.pricingProTag">Everything becomes unlimited</div>
- <div class="plan-toggle" role="tablist" aria-label="Choose billing interval">
- <button type="button" class="plan-toggle-btn active" data-plan="monthly" role="tab" aria-selected="true" data-i18n="joinPro.toggleMonthly">Monthly</button>
- <button type="button" class="plan-toggle-btn" data-plan="annual" role="tab" aria-selected="false">
- <span data-i18n="joinPro.toggleAnnual">Annual</span>
- <span class="save-tag" data-i18n="joinPro.saveShort">Save ~17%</span>
- </button>
+ <div class="plan-prices">
+ <div class="plan-price-box">
+ <div class="pl" data-i18n="joinPro.monthlyPlan">Monthly Plan</div>
+ <div class="pa">$14.99</div>
+ <div class="pu" data-i18n="joinPro.monthlyPriceNote">USD per month</div>
  </div>
- <div class="price" data-pro-price>$14.99</div>
- <p class="price-note" data-pro-price-note data-i18n="joinPro.monthlyPriceNote">USD per month</p>
- <p class="price-savings" data-pro-savings></p>
- <p class="price-note" data-pro-billing-note data-i18n="joinPro.monthlyNote">Billed monthly. Cancel anytime — no contracts.</p>
+ <div class="plan-price-box featured">
+ <div class="pl" data-i18n="joinPro.annualPlan">Annual Plan</div>
+ <div class="pa">$149.90</div>
+ <div class="pu" data-i18n="joinPro.annualPriceNote">USD per year</div>
+ <div class="ps" data-i18n="joinPro.annualSavings">Save ~17% vs paying monthly</div>
+ </div>
+ </div>
  <ul>
  <li data-i18n="home.pricingProFeature1">All lessons: Beginner to Professional</li>
  <li data-i18n="home.pricingProFeature2">Unlimited Dominar, voice & text</li>
@@ -457,7 +462,7 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
  <li data-i18n="home.pricingProFeature5">Portfolio simulator: stocks, ETFs, bonds, crypto, real estate</li>
  <li data-i18n="home.pricingProFeature6">Certification system: Beginner to Professional</li>
  </ul>
- <a class="btn primary" data-pro-cta href="join-pro.html?plan=monthly" data-i18n="home.pricingProCta">Join Pro</a>
+ <a class="btn primary" href="join-pro.html" data-i18n="home.pricingProCta">Join Pro</a>
  </div>
  </div>
  </div>
@@ -472,23 +477,6 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
 
 <script src="js/i18n/i18n.js"></script>
 <script src="js/i18n-init.js"></script>
-<script src="js/pricing-toggle.js"></script>
-<script>
-(function () {
-  function bootHomePricing() {
-    var box = document.getElementById("home-pro-pricing");
-    if (box && window.TreasoraPricingToggle) {
-      TreasoraPricingToggle.init(box, { linkMode: true, linkBase: "join-pro.html" });
-    }
-  }
-  if (window.TreasoraI18n) {
-    TreasoraI18n.init().then(bootHomePricing);
-  } else {
-    bootHomePricing();
-  }
-  document.addEventListener("treasora:locale-changed", bootHomePricing);
-})();
-</script>
 </body>
 
 <!-- TREASORA FINAL: COPY FIXED -->

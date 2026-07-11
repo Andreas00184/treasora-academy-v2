@@ -49,20 +49,18 @@ nav .pro.current{outline:2px solid var(--gold2);outline-offset:2px}
 
 .card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));border-radius:26px;box-shadow:0 26px 90px rgba(0,0,0,.35)}
 
-/* UNIFIED PRO PRICING BOX */
-.pro-pricing-box{padding:34px 28px;margin:32px 0 24px;text-align:center;position:relative}
-.plan-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:6px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.03);margin-bottom:24px}
-.plan-toggle-btn{border:0;border-radius:12px;padding:14px 10px;background:transparent;color:var(--muted);font-weight:800;font-size:14px;cursor:pointer;line-height:1.3;transition:background .2s,color .2s}
-.plan-toggle-btn.active{background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;box-shadow:0 0 18px rgba(212,175,55,.18)}
-.plan-toggle-btn .save-tag{display:block;font-size:11px;font-weight:900;margin-top:3px;color:var(--gold2)}
-.plan-toggle-btn.active .save-tag{color:#050505;opacity:.85}
-.price-display{margin-bottom:22px}
-.price-tag{font-size:46px;font-weight:900;margin-bottom:4px}
+/* UNIFIED PRO PRICING BOX — both plans visible */
+.pro-pricing-box{padding:28px 22px;margin:32px 0 24px}
+.plan-options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.plan-option{position:relative;border:1px solid var(--line);border-radius:20px;padding:22px 16px;text-align:center;background:rgba(255,255,255,.02)}
+.plan-option.featured{border-color:rgba(212,175,55,.45);background:linear-gradient(180deg,rgba(212,175,55,.10),rgba(255,255,255,.02))}
+.plan-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;font-size:10.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.plan-label{font-size:13px;font-weight:800;color:var(--gold2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.price-tag{font-size:40px;font-weight:900;margin-bottom:4px;line-height:1}
 .price-note{color:var(--muted);font-size:14px;margin-bottom:8px}
-.price-savings{color:var(--gold2);font-size:13px;font-weight:800;margin-bottom:8px}
-.price-savings:empty{display:none}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;font-weight:950;border:0;border-radius:18px;min-height:58px;padding:16px 18px;font-size:16.5px;cursor:pointer;box-shadow:0 0 26px rgba(212,175,55,.22)}
-.btn-manage{display:none;margin:0 0 24px}
+.price-savings{color:var(--gold2);font-size:12.5px;font-weight:800;margin-bottom:12px;min-height:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;font-weight:950;border:0;border-radius:18px;min-height:52px;padding:14px 16px;font-size:15px;cursor:pointer;box-shadow:0 0 26px rgba(212,175,55,.22)}
+.btn-manage{display:none;margin:0 0 24px;width:100%}
 .btn-secondary{display:inline-flex;align-items:center;justify-content:center;width:100%;border:1px solid rgba(255,255,255,.16);border-radius:18px;min-height:52px;padding:14px 18px;background:transparent;color:var(--muted);font-weight:700;font-size:14.5px;margin-top:12px}
 .btn-secondary:hover{border-color:var(--line);color:var(--gold2)}
 .trust-line{margin-top:18px;font-size:12.5px;color:var(--muted)}
@@ -89,7 +87,8 @@ footer p{color:var(--muted);font-size:13px}
 
 @media(max-width:640px){
   .hero h1{font-size:29px}
-  .price-tag{font-size:38px}
+  .plan-options{grid-template-columns:1fr}
+  .price-tag{font-size:36px}
   .compare-row{grid-template-columns:1.6fr .6fr .6fr;font-size:13px}
 }
 </style>
@@ -121,20 +120,23 @@ footer p{color:var(--muted);font-size:13px}
 
   <div class="container">
     <div class="card pro-pricing-box" id="pricing-plans">
-      <div class="plan-toggle" role="tablist" aria-label="Choose billing interval">
-        <button type="button" class="plan-toggle-btn active" data-plan="monthly" role="tab" aria-selected="true" data-i18n="joinPro.toggleMonthly">Monthly</button>
-        <button type="button" class="plan-toggle-btn" data-plan="annual" role="tab" aria-selected="false">
-          <span data-i18n="joinPro.toggleAnnual">Annual</span>
-          <span class="save-tag" data-i18n="joinPro.saveShort">Save ~17%</span>
-        </button>
+      <div class="plan-options">
+        <div class="plan-option">
+          <div class="plan-label" data-i18n="joinPro.monthlyPlan">Monthly Plan</div>
+          <div class="price-tag">$14.99</div>
+          <div class="price-note" data-i18n="joinPro.monthlyPriceNote">USD per month</div>
+          <div class="price-savings">&nbsp;</div>
+          <a class="btn" href="signup.html" id="join-pro-monthly-btn" data-i18n="joinPro.startMonthly">Start Monthly Pro</a>
+        </div>
+        <div class="plan-option featured">
+          <div class="plan-badge" data-i18n="joinPro.bestValue">Best value</div>
+          <div class="plan-label" data-i18n="joinPro.annualPlan">Annual Plan</div>
+          <div class="price-tag">$149.90</div>
+          <div class="price-note" data-i18n="joinPro.annualPriceNote">USD per year</div>
+          <div class="price-savings" data-i18n="joinPro.annualSavings">Save ~17% vs paying monthly</div>
+          <a class="btn" href="signup.html" id="join-pro-annual-btn" data-i18n="joinPro.startAnnual">Start Annual Pro</a>
+        </div>
       </div>
-      <div class="price-display">
-        <div class="price-tag" id="pro-price">$14.99</div>
-        <div class="price-note" id="pro-price-note" data-i18n="joinPro.monthlyPriceNote">USD per month</div>
-        <div class="price-savings" id="pro-savings"></div>
-        <div class="price-note" id="pro-billing-note" data-i18n="joinPro.monthlyNote">Billed monthly. Cancel anytime — no contracts.</div>
-      </div>
-      <a class="btn" href="signup.html" id="join-pro-checkout-btn" data-i18n="joinPro.startPro">Start Pro Today</a>
     </div>
     <a class="btn btn-manage" href="signup.html" id="join-pro-manage-btn" data-i18n="joinPro.manageSubscription">Manage Subscription</a>
     <div id="checkout-error" style="display:none;color:#ff8a8a;font-size:13px;font-weight:700;margin:0 0 16px;padding:10px 14px;border:1px solid rgba(255,120,120,.35);border-radius:14px;background:rgba(255,120,120,.06)"></div>
@@ -180,7 +182,6 @@ footer p{color:var(--muted);font-size:13px}
 <script src="js/config.js"></script>
 <script src="js/supabase-client.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/pricing-toggle.js"></script>
 <script src="js/join-pro.js"></script>
 
 <script src="js/i18n/i18n.js"></script>
