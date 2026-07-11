@@ -78,3 +78,14 @@ The `dominar-chat` function now:
 - Supports `{ "welcome": true }` for personalized welcome messages (no quota cost)
 
 Knowledge Score categories are computed client-side in `js/knowledge-score.js` and shown on the dashboard.
+
+## Internationalization (i18n)
+
+Run `migrations/20250711140000_ui_language.sql` to add `profiles.ui_language` (`en`, `it`, `es`).
+
+- Locale files: `js/i18n/locales/{en,it,es}.json`
+- Core: `js/i18n/i18n.js` + `js/i18n-init.js` on every page
+- Users choose language at signup; change anytime in `settings.html`
+- Dominar reads `profiles.ui_language` and responds in that language
+
+**Brand names are never translated:** Treasora Academy, Dominar, Financial Passport.

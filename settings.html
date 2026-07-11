@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/site.css">
+<title>Settings — Treasora Academy</title>
+<style>
+:root{
+  --black:#020202;--gold:#d4af37;--gold2:#ffe37a;--gold3:#a87518;
+  --silver:#f5f1e8;--muted:rgba(245,241,232,.72);--line:rgba(212,175,55,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at 80% 6%,rgba(212,175,55,.12),transparent 32%),linear-gradient(180deg,#020202,#090806 58%,#020202);color:var(--silver);line-height:1.6;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.container{width:min(640px,calc(100% - 34px));margin:auto}
+header{background:#020202;border-bottom:1px solid rgba(212,175,55,.16)}
+.header-inner{padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.logo img{width:235px;max-width:76vw;height:auto}
+nav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+nav a{color:var(--muted);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:9px 12px;font-size:13.5px}
+nav a:hover{border-color:var(--line);color:var(--gold2)}
+nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));border:0}
+nav .current{color:var(--gold2);border-color:var(--line);background:rgba(212,175,55,.08)}
+.gold{background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero{padding:40px 0 20px}
+.hero h1{font-size:32px;font-weight:900;margin-bottom:8px}
+.hero p{color:var(--muted);font-size:15px}
+.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));border-radius:24px;padding:26px;margin-bottom:18px}
+.card h2{font-size:18px;font-weight:900;margin-bottom:8px}
+.card p{color:var(--muted);font-size:14px;margin-bottom:16px}
+label{display:block;color:var(--gold2);font-weight:800;font-size:14px;margin-bottom:8px}
+select{width:100%;background:#020202;color:var(--silver);border:1px solid rgba(212,175,55,.38);border-radius:14px;padding:14px;font-size:15px;font-family:inherit}
+.lang-options{display:grid;gap:10px;margin-bottom:16px}
+.lang-option{display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;cursor:pointer;background:rgba(255,255,255,.02)}
+.lang-option:hover,.lang-option.selected{border-color:var(--gold2);background:rgba(212,175,55,.08)}
+.lang-option input{accent-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;font-weight:950;border:0;border-radius:18px;min-height:52px;padding:14px 22px;font-size:15px;cursor:pointer;width:100%}
+.btn-secondary{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:18px;min-height:52px;padding:14px 22px;font-size:15px;font-weight:800;color:var(--silver);background:transparent;cursor:pointer;width:100%}
+.msg{margin-top:14px;font-size:14px;font-weight:700;padding:10px 14px;border-radius:14px;display:none}
+.msg.ok{display:block;color:var(--gold2);border:1px solid var(--line);background:rgba(212,175,55,.08)}
+.msg.err{display:block;color:#ff8a8a;border:1px solid rgba(255,120,120,.35);background:rgba(255,120,120,.06)}
+footer{padding:30px 0 44px;text-align:center}
+footer p{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body data-i18n-page-title="settings.title">
+<header>
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><img src="assets/treasora-logo.png" alt="Treasora Academy"></a>
+    <nav data-i18n-aria="nav.mainNav" aria-label="Main navigation">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="learn.html" data-i18n="nav.learn">Learn</a>
+      <a href="ask-dominar.html" data-i18n="nav.askDominar">Ask Dominar</a>
+      <a href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
+      <a href="passport.html" data-i18n="nav.passport">Financial Passport</a>
+      <a href="join-pro.html" class="pro" data-i18n="nav.joinPro">Join Pro</a>
+      <a href="settings.html" class="current" data-i18n="nav.settings">Settings</a>
+      <a href="sign-in.html" data-i18n="nav.signIn">Sign In</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero">
+    <h1 data-i18n="settings.heading">Settings</h1>
+    <p data-i18n="settings.lead">Manage your account preferences.</p>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="settings.languageSection">Language</h2>
+    <p data-i18n="settings.languageDescription">Changes apply to the website and Dominar immediately.</p>
+    <label data-i18n="language.label">Preferred language</label>
+    <div class="lang-options" id="lang-options">
+      <label class="lang-option"><input type="radio" name="ui-language" value="en"> 🇺🇸 <span data-i18n="language.en">English</span></label>
+      <label class="lang-option"><input type="radio" name="ui-language" value="it"> 🇮🇹 <span data-i18n="language.it">Italiano</span></label>
+      <label class="lang-option"><input type="radio" name="ui-language" value="es"> 🇪🇸 <span data-i18n="language.es">Español</span></label>
+    </div>
+    <button type="button" class="btn" id="save-language-btn" data-i18n="settings.saveLanguage">Save Language</button>
+    <div class="msg" id="lang-msg"></div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="settings.subscriptionSection">Subscription</h2>
+    <div style="display:grid;gap:10px">
+      <button type="button" class="btn-secondary" id="settings-manage-sub" style="display:none" data-i18n="settings.manageSubscription">Manage Subscription</button>
+      <a class="btn-secondary" id="settings-upgrade" href="join-pro.html" style="display:none;text-align:center" data-i18n="settings.upgradePro">Upgrade to Pro</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="settings.accountSection">Account</h2>
+    <button type="button" class="btn-secondary" id="sign-out-btn" data-i18n="settings.signOut">Sign Out</button>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p><a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a> · <a href="terms.html" data-i18n="footer.terms">Terms of Service</a> · <a href="contact.html" data-i18n="footer.contact data-i18n="nav.contact">Contact</a><br>
+    <span data-i18n="footer.tagline">Education before speculation. Wealth through knowledge.</span></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/i18n/i18n.js"></script>
+<script src="js/i18n-init.js"></script>
+<script src="js/billing.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>

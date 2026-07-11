@@ -9,7 +9,7 @@ import {
 } from "./knowledge.ts";
 
 export type UserMemory = {
-  profile: { full_name: string | null; is_pro: boolean } | null;
+  profile: { full_name: string | null; is_pro: boolean; ui_language: string | null } | null;
   passport: {
     knowledge_level: string;
     preferred_language: string;
@@ -29,7 +29,7 @@ export async function fetchUserMemory(
   userId: string,
 ): Promise<UserMemory> {
   const [profileRes, passportRes, progressRes, messagesRes] = await Promise.all([
-    admin.from("profiles").select("full_name, is_pro").eq("id", userId).maybeSingle(),
+    admin.from("profiles").select("full_name, is_pro, ui_language").eq("id", userId).maybeSingle(),
     admin.from("financial_passports").select("*").eq("user_id", userId).maybeSingle(),
     admin.from("lesson_progress").select("lesson_number, quiz_score, quiz_total, completed_at").eq("user_id", userId),
     admin
@@ -61,14 +61,21 @@ export function firstName(fullName: string | null | undefined): string {
 export function buildSystemPrompt(memory: UserMemory): string {
   const { profile, passport, progress } = memory;
   const name = firstName(profile?.full_name);
+  const uiLang = profile?.ui_language || passport?.preferred_language || "en";
+  const langCode = uiLang === "Italian" ? "it" : uiLang === "Spanish" ? "es" : uiLang.length === 2 ? uiLang : "en";
+  const langNames: Record<string, string> = { en: "English", it: "Italian", es: "Spanish" };
+  const respondIn = langNames[langCode] || "English";
+
   const lines: string[] = [
     "You are Dominar, Treasora Academy's AI financial education assistant and personal mentor.",
     "Give clear, practical answers about personal finance, investing, and the Treasora curriculum.",
     "Never provide personalized investment advice or guarantee returns. Encourage learning and responsible decisions.",
+    `IMPORTANT: Always respond in ${respondIn}. The user's selected interface language is ${langCode}. Continue in ${respondIn} even when referencing prior messages, unless the user explicitly asks to switch language.`,
     "Use the learner context below to personalize every response — reference their goals, progress, and weak areas when relevant.",
     "",
     "=== LEARNER CONTEXT ===",
     `Name: ${name}`,
+    `Interface language: ${respondIn} (${langCode})`,
   ];
 
   if (passport) {

@@ -352,7 +352,7 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
 
 </style>
 </head>
-<body>
+<body data-i18n-page-title="auth.signUpTitle">
 <header>
  <div class="container header-inner">
  <a class="logo" href="index.html" aria-label="Treasora Academy Home"><img src="assets/treasora-logo.png" alt="Treasora Academy logo"></a>
@@ -373,44 +373,52 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
  <section class="hero">
   <div class="container">
    <div class="signup-wrap">
-    <div class="kicker"><span class="dot"></span> Free Treasora Account</div>
-    <h1>Create Your<br><span class="gold">Free Account.</span></h1>
-    <p class="lead">Start with 20 beginner lessons, guidance from Dominar, your AI mentor, and your Personal Financial Passport.</p>
+    <div class="kicker"><span class="dot"></span> <span data-i18n="auth.signUpKicker">Free Treasora Account</span></div>
+    <h1 data-i18n-html="auth.signUpHeadingHtml">Create Your<br><span class="gold">Free Account.</span></h1>
+    <p class="lead" data-i18n="auth.signUpLead">Start with 20 beginner lessons, guidance from Dominar, your AI mentor, and your Financial Passport.</p>
 
     <div class="signup-card">
      <form id="signup-form">
-      <label for="first-name">First Name</label>
-      <input id="first-name" name="first-name" type="text" placeholder="First name" required>
+      <label data-i18n="language.label">Preferred language</label>
+      <div class="lang-options" style="display:grid;gap:10px;margin-bottom:20px">
+       <label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="ui-language" value="en" checked> 🇺🇸 <span data-i18n="language.en">English</span></label>
+       <label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="ui-language" value="it"> 🇮🇹 <span data-i18n="language.it">Italiano</span></label>
+       <label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="ui-language" value="es"> 🇪🇸 <span data-i18n="language.es">Español</span></label>
+      </div>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:18px" data-i18n="language.hint">Choose the language for the website and Dominar.</p>
 
-      <label for="last-name">Last Name</label>
-      <input id="last-name" name="last-name" type="text" placeholder="Last name" required>
+      <label for="first-name" data-i18n="auth.firstName">First Name</label>
+      <input id="first-name" name="first-name" type="text" data-i18n-placeholder="auth.firstNamePlaceholder" placeholder="First name" required>
 
-      <label for="email">Email Address</label>
-      <input id="email" name="email" type="email" placeholder="you@example.com" required>
+      <label for="last-name" data-i18n="auth.lastName">Last Name</label>
+      <input id="last-name" name="last-name" type="text" data-i18n-placeholder="auth.lastNamePlaceholder" placeholder="Last name" required>
 
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" placeholder="Create a password" required minlength="6">
+      <label for="email" data-i18n="auth.email">Email Address</label>
+      <input id="email" name="email" type="email" data-i18n-placeholder="auth.emailPlaceholder" placeholder="you@example.com" required>
 
-      <label for="confirm-password">Confirm Password</label>
-      <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm your password" required minlength="6">
+      <label for="password" data-i18n="auth.password">Password</label>
+      <input id="password" name="password" type="password" data-i18n-placeholder="auth.passwordPlaceholder" placeholder="Create a password" required minlength="6">
+
+      <label for="confirm-password" data-i18n="auth.confirmPassword">Confirm Password</label>
+      <input id="confirm-password" name="confirm-password" type="password" data-i18n-placeholder="auth.confirmPasswordPlaceholder" placeholder="Confirm your password" required minlength="6">
 
       <div id="signup-error" style="display:none;color:#ff8a8a;font-size:14px;font-weight:700;margin-top:14px;padding:10px 14px;border:1px solid rgba(255,120,120,.35);border-radius:14px;background:rgba(255,120,120,.06)"></div>
 
       <div class="actions" style="margin-top:26px;">
-       <button class="btn primary" type="submit" id="signup-submit-btn">Create My Free Account</button>
+       <button class="btn primary" type="submit" id="signup-submit-btn" data-i18n="auth.signUpBtn">Create My Free Account</button>
       </div>
 
-      <p class="signup-note">By creating an account, you agree to Treasora Academy's Terms of Service and Privacy Policy. You can upgrade to Pro later using the same account.</p>
+      <p class="signup-note" data-i18n="auth.termsNote">By creating an account, you agree to Treasora Academy's Terms of Service and Privacy Policy. You can upgrade to Pro later using the same account.</p>
      </form>
     </div>
 
     <div class="signup-benefits">
-     <div class="signup-benefit">20 Beginner Lessons</div>
-     <div class="signup-benefit">Dominar AI, Your Mentor</div>
-     <div class="signup-benefit">Personal Financial Passport</div>
+     <div class="signup-benefit" data-i18n="auth.benefitLessons">20 Beginner Lessons</div>
+     <div class="signup-benefit" data-i18n="auth.benefitDominar">Dominar AI, Your Mentor</div>
+     <div class="signup-benefit" data-i18n="auth.benefitPassport">Financial Passport</div>
     </div>
 
-    <p class="signup-note" style="text-align:center;margin-top:24px;">Already have an account? <a href="sign-in.html" style="color:var(--gold2);font-weight:850;">Sign in</a></p>
+    <p class="signup-note" style="text-align:center;margin-top:24px;"><span data-i18n="auth.hasAccount">Already have an account?</span> <a href="sign-in.html" style="color:var(--gold2);font-weight:850;" data-i18n="auth.signInLink">Sign in</a></p>
    </div>
   </div>
  </section>

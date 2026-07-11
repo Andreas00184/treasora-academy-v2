@@ -127,74 +127,74 @@ footer p{color:var(--muted);font-size:13px}
 }
 </style>
 </head>
-<body>
+<body data-i18n-page-title="dashboard.title">
 <header>
   <div class="container header-inner">
     <a class="logo" href="index.html" aria-label="Treasora Academy Home"><img src="assets/treasora-logo.png" alt="Treasora Academy logo"></a>
-    <nav aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="learn.html">Learn</a>
-      <a href="ask-dominar.html">Ask Dominar</a>
-      <a href="dashboard.html" class="current">Dashboard</a>
-      <a href="passport.html">Passport</a>
-      <a href="join-pro.html" class="pro">Join Pro</a>
-      <a href="sign-in.html" class="signin">Sign In</a>
-      <a href="contact.html">Contact</a>
+    <nav data-i18n-aria="nav.mainNav" aria-label="Main navigation">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="learn.html" data-i18n="nav.learn">Learn</a>
+      <a href="ask-dominar.html" data-i18n="nav.askDominar">Ask Dominar</a>
+      <a href="dashboard.html" class="current" data-i18n="nav.dashboard">Dashboard</a>
+      <a href="passport.html" data-i18n="nav.passport">Financial Passport</a>
+      <a href="join-pro.html" class="pro" data-i18n="nav.joinPro">Join Pro</a>
+      <a href="sign-in.html" class="signin" data-i18n="nav.signIn">Sign In</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
   </div>
 </header>
 
 <main>
   <div class="container hero">
-    <div class="kicker"><span class="dot"></span> Free Plan</div>
-    <h1>Welcome <span class="gold">back.</span></h1>
-    <p>Here's where you left off, and what Dominar has built for you so far.</p>
+    <div class="kicker"><span class="dot"></span> <span data-i18n="dashboard.kickerFree">Free Plan</span></div>
+    <h1 data-i18n-html="dashboard.welcomeDefault">Welcome <span class="gold">back.</span></h1>
+    <p data-i18n="dashboard.lead">Here's where you left off, and what Dominar has built for you so far.</p>
   </div>
 
   <div class="container">
     <div class="card progress-card">
       <div class="progress-top">
-        <span class="label">Foundation Program</span>
+        <span class="label" data-i18n="dashboard.foundationProgram">Foundation Program</span>
         <span class="value" id="progress-value">4 of 20 lessons complete</span>
       </div>
       <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:20%"></div></div>
 
       <div class="continue-row">
         <div class="continue-info">
-          <div class="cl">Continue where you left off</div>
+          <div class="cl" data-i18n="dashboard.continueLabel">Continue where you left off</div>
           <div class="ct">Lesson 5 · Why Saving Money Matters</div>
         </div>
         <a class="btn" href="lesson-5.html">Continue Lesson 5 →</a>
       </div>
     </div>
 
-    <div class="section-title">Knowledge Score</div>
+    <div class="section-title" data-i18n="dashboard.knowledgeScore">Knowledge Score</div>
     <div class="card knowledge-card">
       <div id="knowledge-scores"></div>
       <div class="weak-areas">
-        <h3>Areas to review</h3>
+        <h3 data-i18n="dashboard.areasToReview">Areas to review</h3>
         <div id="weak-areas"></div>
       </div>
     </div>
 
-    <div class="section-title">Subscription</div>
+    <div class="section-title" data-i18n="dashboard.subscription">Subscription</div>
     <div class="card subscription-card">
       <div class="sub-grid">
-        <div class="sub-item"><span class="sub-label">Plan</span><span class="sub-value" id="sub-plan">Free</span></div>
-        <div class="sub-item"><span class="sub-label">Status</span><span class="sub-value" id="sub-status">—</span></div>
-        <div class="sub-item"><span class="sub-label">Renews</span><span class="sub-value" id="sub-renewal">—</span></div>
+        <div class="sub-item"><span class="sub-label" data-i18n="dashboard.plan">Plan</span><span class="sub-value" id="sub-plan">Free</span></div>
+        <div class="sub-item"><span class="sub-label" data-i18n="dashboard.status">Status</span><span class="sub-value" id="sub-status">—</span></div>
+        <div class="sub-item"><span class="sub-label" data-i18n="dashboard.renews">Renews</span><span class="sub-value" id="sub-renewal">—</span></div>
       </div>
       <div class="sub-actions">
-        <button type="button" id="manage-subscription-btn" class="btn-secondary" style="display:none">Manage Subscription</button>
-        <a id="upgrade-subscription-btn" class="btn" href="join-pro.html" style="display:none">Upgrade to Pro</a>
+        <button type="button" id="manage-subscription-btn" class="btn-secondary" style="display:none" data-i18n="dashboard.manageSubscription">Manage Subscription</button>
+        <a id="upgrade-subscription-btn" class="btn" href="join-pro.html" style="display:none" data-i18n="dashboard.upgradeToPro">Upgrade to Pro</a>
       </div>
       <div id="billing-history-wrap" style="display:none">
-        <h3>Billing history</h3>
+        <h3 data-i18n="dashboard.billingHistory">Billing history</h3>
         <div id="billing-history"></div>
       </div>
     </div>
 
-    <div class="section-title">Your Roadmap</div>
+    <div class="section-title" data-i18n="dashboard.roadmap">Your Roadmap</div>
     <div class="roadmap">
       <div class="phase done">
         <div class="phase-icon">✓</div>
@@ -230,28 +230,28 @@ footer p{color:var(--muted);font-size:13px}
       </div>
     </div>
 
-    <div class="section-title">Your Financial Passport</div>
+    <div class="section-title" data-i18n="dashboard.passportSection">Your Financial Passport</div>
     <div class="passport-grid">
-      <div class="passport-card"><div class="pk">Biggest Goal</div><div class="pv">🎯 Financial Freedom</div></div>
-      <div class="passport-card"><div class="pk">Knowledge Level</div><div class="pv">Beginner</div></div>
-      <div class="passport-card"><div class="pk">Learning Pace</div><div class="pv">Normal pace</div></div>
-      <div class="passport-card"><div class="pk">Language</div><div class="pv">English</div></div>
+      <div class="passport-card"><div class="pk" data-i18n="dashboard.goal">Biggest Goal</div><div class="pv">🎯 Financial Freedom</div></div>
+      <div class="passport-card"><div class="pk" data-i18n="dashboard.knowledgeLevel">Knowledge Level</div><div class="pv">Beginner</div></div>
+      <div class="passport-card"><div class="pk" data-i18n="dashboard.learningPace">Learning Pace</div><div class="pv">Normal pace</div></div>
+      <div class="passport-card"><div class="pk" data-i18n="dashboard.language">Language</div><div class="pv">English</div></div>
     </div>
 
     <div class="card dominar-strip">
       <div class="avatar"><img src="assets/dominar-icon.png" alt="Dominar" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:inherit;display:block"></div>
       <div class="txt">
-        <div class="t1">Have a question about anything so far?</div>
-        <div class="t2">Dominar remembers your progress and goals — ask away.</div>
+        <div class="t1" data-i18n="dashboard.dominarStripTitle">Have a question about anything so far?</div>
+        <div class="t2" data-i18n="dashboard.dominarStripBody">Dominar remembers your progress and goals — ask away.</div>
       </div>
-      <a class="btn-secondary" href="ask-dominar.html">Ask Dominar →</a>
+      <a class="btn-secondary" href="ask-dominar.html" data-i18n="dashboard.askDominarBtn">Ask Dominar →</a>
     </div>
   </div>
 </main>
 
 <footer>
   <div class="container">
-    <p><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="contact.html">Contact</a><br>
+    <p><a href="privacy.html"><span data-i18n="footer.privacy">Privacy Policy</span></a> · <a href="terms.html"><span data-i18n="footer.terms">Terms of Service</span></a> · <a href="contact.html" data-i18n="nav.contact">Contact</a><br>
     © 2026 Treasora Academy. Education before speculation. Wealth through knowledge.</p>
   </div>
 </footer>
@@ -264,5 +264,8 @@ footer p{color:var(--muted);font-size:13px}
 <script src="js/knowledge-score.js"></script>
 <script src="js/billing.js"></script>
 <script src="js/dashboard.js"></script>
+
+<script src="js/i18n/i18n.js"></script>
+<script src="js/i18n-init.js"></script>
 </body>
 </html>

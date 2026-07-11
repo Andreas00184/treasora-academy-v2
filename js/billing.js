@@ -55,7 +55,7 @@
 
   async function openBillingPortal(returnUrl) {
     if (!global.SUPABASE_CONFIGURED) {
-      alert("Stripe billing is not configured yet.");
+      alert(t("billing.stripeNotConfigured"));
       return;
     }
     var session = await global.TreasoraAuth.getSession();
@@ -81,7 +81,7 @@
   function renderBillingHistory(container, rows) {
     if (!container) return;
     if (!rows.length) {
-      container.innerHTML = '<p class="billing-empty">No invoices yet.</p>';
+      container.innerHTML = '<p class="billing-empty">' + t("dashboard.noInvoices") + "</p>";
       return;
     }
     container.innerHTML =
@@ -120,6 +120,10 @@
       "</tbody></table>";
   }
 
+  function t(key, vars) {
+    return global.TreasoraI18n ? global.TreasoraI18n.t(key, vars) : key;
+  }
+
   function renderSubscriptionUI(profile, billingRows) {
     var planEl = document.getElementById("sub-plan");
     var statusEl = document.getElementById("sub-status");
@@ -133,9 +137,9 @@
     var isPro = profile && (profile.current_plan === "pro" || profile.is_pro);
     var hasCustomer = profile && profile.stripe_customer_id;
 
-    if (planEl) planEl.textContent = planLabel(profile);
+    if (planEl) planEl.textContent = isPro ? t("common.pro") : t("common.free");
     if (statusEl) {
-      statusEl.textContent = isPro ? formatStatus(profile.subscription_status || "active") : "Free account";
+      statusEl.textContent = isPro ? formatStatus(profile.subscription_status || "active") : t("dashboard.freeAccount");
     }
     if (renewalEl) {
       renewalEl.textContent = isPro && profile.renewal_date
@@ -145,30 +149,34 @@
 
     if (kicker) {
       kicker.innerHTML = isPro
-        ? '<span class="dot"></span> Pro Member'
-        : '<span class="dot"></span> Free Plan';
+        ? '<span class="dot"></span> ' + t("dashboard.kickerPro")
+        : '<span class="dot"></span> ' + t("dashboard.kickerFree");
     }
 
     if (manageBtn) {
       manageBtn.style.display = hasCustomer ? "inline-flex" : "none";
+      manageBtn.textContent = t("dashboard.manageSubscription");
       manageBtn.onclick = async function () {
         manageBtn.disabled = true;
-        manageBtn.textContent = "Opening portal…";
+        manageBtn.textContent = t("dashboard.openingPortal");
         try {
           await openBillingPortal(window.location.origin + "/dashboard.html");
         } catch (err) {
-          alert(err.message || "Could not open billing portal.");
+          alert(err.message || t("billing.portalError"));
           manageBtn.disabled = false;
-          manageBtn.textContent = "Manage Subscription";
+          manageBtn.textContent = t("dashboard.manageSubscription");
         }
       };
     }
 
     if (upgradeBtn) {
       upgradeBtn.style.display = !isPro ? "inline-flex" : "none";
+      upgradeBtn.textContent = t("dashboard.upgradeToPro");
     }
 
     if (historyWrap && historyEl) {
+      var historyTitle = historyWrap.querySelector("h3");
+      if (historyTitle) historyTitle.textContent = t("dashboard.billingHistory");
       if (hasCustomer && billingRows.length) {
         historyWrap.style.display = "block";
         renderBillingHistory(historyEl, billingRows);
@@ -191,9 +199,7 @@
     var params = new URLSearchParams(window.location.search);
     if (params.get("upgraded") === "1") {
       var hero = document.querySelector(".hero p");
-      if (hero) {
-        hero.textContent = "Welcome to Pro — your subscription is active. Dominar is unlimited.";
-      }
+      if (hero) hero.textContent = t("dashboard.leadUpgraded");
       history.replaceState(null, "", "dashboard.html");
     }
   }

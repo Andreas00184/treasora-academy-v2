@@ -83,9 +83,9 @@
         var pct = cat.score;
         var label =
           cat.totalLessons === 0
-            ? "Coming soon"
+            ? (global.TreasoraI18n ? global.TreasoraI18n.t("common.comingSoon") : "Coming soon")
             : cat.completedLessons === 0
-              ? "Not started"
+              ? (global.TreasoraI18n ? global.TreasoraI18n.t("common.notStarted") : "Not started")
               : pct + "%";
         var width = cat.totalLessons === 0 ? 0 : cat.completedLessons === 0 ? 0 : pct;
         return (
@@ -111,7 +111,10 @@
     if (!container) return;
     var weak = computeWeakAreas(rows);
     if (!weak.length) {
-      container.innerHTML = '<p class="weak-none">No weak areas yet — keep learning!</p>';
+      container.innerHTML =
+        '<p class="weak-none">' +
+        (global.TreasoraI18n ? global.TreasoraI18n.t("dashboard.noWeakAreas") : "No weak areas yet") +
+        "</p>";
       return;
     }
     container.innerHTML =

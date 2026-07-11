@@ -107,15 +107,15 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 <header>
   <div class="container header-inner">
     <a class="logo" href="index.html" aria-label="Treasora Academy Home"><img src="assets/treasora-logo.png" alt="Treasora Academy"></a>
-        <nav aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="learn.html">Learn</a>
-      <a href="ask-dominar.html" class="current">Ask Dominar</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="passport.html">Passport</a>
-      <a href="join-pro.html" class="pro">Join Pro</a>
-      <a href="sign-in.html" class="signin">Sign In</a>
-      <a href="contact.html">Contact</a>
+        <nav data-i18n-aria="nav.mainNav" aria-label="Main navigation">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="learn.html" data-i18n="nav.learn">Learn</a>
+      <a href="ask-dominar.html" class="current" data-i18n="nav.askDominar">Ask Dominar</a>
+      <a href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
+      <a href="passport.html" data-i18n="nav.passport">Financial Passport</a>
+      <a href="join-pro.html" class="pro" data-i18n="nav.joinPro">Join Pro</a>
+      <a href="sign-in.html" class="signin" data-i18n="nav.signIn">Sign In</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -164,8 +164,17 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 <script src="js/config.js"></script>
 <script src="js/supabase-client.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/i18n/i18n.js"></script>
+<script src="js/i18n-init.js"></script>
+<script src="js/ask-dominar-i18n.js"></script>
 <script>
-(function(){
+(async function(){
+  if (window.TreasoraI18n) await TreasoraI18n.init();
+  if (window.TreasoraAskDominarI18n) TreasoraAskDominarI18n.applyStaticStrings();
+
+  function t(key, vars) {
+    return window.TreasoraI18n ? TreasoraI18n.t(key, vars) : key;
+  }
   var messagesInner = document.getElementById('messages-inner');
   var messagesBox = document.getElementById('messages');
   var emptyState = document.getElementById('empty-state');
@@ -181,13 +190,20 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
   var quotaLeft = parseInt(quotaLeftEl.textContent, 10);
 
   async function loadQuota(){
-    if (!SUPABASE_CONFIGURED || !supabaseClient) return;
+    if (!SUPABASE_CONFIGURED || !supabaseClient) {
+      window.__treasoraQuotaLeft = quotaLeft;
+      window.__treasoraIsPro = false;
+      if (TreasoraAskDominarI18n) TreasoraAskDominarI18n.updateQuotaDisplay(quotaLeft, false);
+      return;
+    }
     var session = await TreasoraAuth.getSession();
     if (!session) return;
     var profile = await TreasoraAuth.getProfile();
     if (profile && profile.is_pro) {
-      document.querySelector('.quota-text').innerHTML = 'Pro plan: <strong>unlimited</strong> questions';
       quotaLeft = 9999;
+      window.__treasoraQuotaLeft = quotaLeft;
+      window.__treasoraIsPro = true;
+      if (TreasoraAskDominarI18n) TreasoraAskDominarI18n.updateQuotaDisplay(quotaLeft, true);
       return;
     }
     var today = new Date().toISOString().slice(0, 10);
@@ -195,6 +211,9 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
     var used = (res.data && res.data.question_count) || 0;
     quotaLeft = Math.max(0, 5 - used);
     quotaLeftEl.textContent = quotaLeft;
+    window.__treasoraQuotaLeft = quotaLeft;
+    window.__treasoraIsPro = false;
+    if (TreasoraAskDominarI18n) TreasoraAskDominarI18n.updateQuotaDisplay(quotaLeft, false);
   }
   loadQuota();
 
@@ -320,7 +339,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 
   micBtn.addEventListener('click', function(){
     if (!SpeechRec) {
-      alert('Voice input isn\'t supported in this browser yet. Try Chrome, or type your question instead.');
+      alert(t('askDominar.voiceUnsupported'));
       return;
     }
     if (recognizing) {
@@ -408,7 +427,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 
   async function getDominarReply(text, hadFiles){
     if (!SUPABASE_CONFIGURED || !supabaseClient) {
-      return "Dominar isn't connected to a real backend yet — this preview is just the interface. Once Supabase keys are added, I'll respond for real.";
+      return t('askDominar.notConfigured');
     }
 
     // Note: file/image analysis requires a vision-capable model call,
@@ -421,7 +440,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) {
-      return "You'll need to sign in before Dominar can respond and remember your progress.";
+      return t('askDominar.signInRequired');
     }
 
     try {
@@ -435,20 +454,23 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
       });
       const data = await response.json();
       if (!response.ok) {
-        if (data.code === "LIMIT_REACHED") return data.error || "Daily limit reached.";
-        return data.error || "Dominar is having trouble responding right now. Please try again.";
+        if (data.code === "LIMIT_REACHED") return data.error || t('askDominar.dailyLimit');
+        return data.error || t('askDominar.errorGeneric');
       }
       if (typeof data.remaining === 'number') {
         quotaLeft = data.remaining;
         quotaLeftEl.textContent = quotaLeft;
+        window.__treasoraQuotaLeft = quotaLeft;
+        if (TreasoraAskDominarI18n) TreasoraAskDominarI18n.updateQuotaDisplay(quotaLeft, false);
       }
       if (data.isPro && document.querySelector('.quota-text')) {
-        document.querySelector('.quota-text').innerHTML = 'Pro plan: <strong>unlimited</strong> questions';
+        window.__treasoraIsPro = true;
+        if (TreasoraAskDominarI18n) TreasoraAskDominarI18n.updateQuotaDisplay(9999, true);
         quotaLeft = 9999;
       }
       return data.reply;
     } catch (err) {
-      return "Couldn't reach Dominar — check your connection and try again.";
+      return t('askDominar.errorNetwork');
     }
   }
 
@@ -456,7 +478,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
     var text = input.value.trim();
     if (!text && !pendingFiles.length) return;
     if (quotaLeft <= 0) {
-      addMessage('dominar', "You've used today's free questions. Upgrade to Pro for unlimited conversations with Dominar, or come back tomorrow.");
+      addMessage('dominar', t('askDominar.limitReached'));
       return;
     }
 
@@ -481,9 +503,12 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 </script>
 <footer>
   <div class="container">
-    <p><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="contact.html">Contact</a><br>
+    <p><a href="privacy.html"><span data-i18n="footer.privacy">Privacy Policy</span></a> · <a href="terms.html"><span data-i18n="footer.terms">Terms of Service</span></a> · <a href="contact.html" data-i18n="nav.contact">Contact</a><br>
     © 2026 Treasora Academy. Education before speculation. Wealth through knowledge.</p>
   </div>
 </footer>
+
+<script src="js/i18n/i18n.js"></script>
+<script src="js/i18n-init.js"></script>
 </body>
 </html>

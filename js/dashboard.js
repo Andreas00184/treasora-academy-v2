@@ -2,13 +2,22 @@
  * Dashboard: load progress, passport, and roadmap from Supabase.
  */
 (function (global) {
+  function t(key, vars) {
+    return global.TreasoraI18n ? global.TreasoraI18n.t(key, vars) : key;
+  }
+
   async function load() {
+    if (global.TreasoraI18n) await global.TreasoraI18n.init();
     if (!global.TreasoraAuth || !global.TreasoraSupabase) return;
     var session = await global.TreasoraAuth.requireAuth("sign-in.html");
     if (!session) return;
 
     var user = session.user;
     var profile = await global.TreasoraAuth.getProfile();
+    if (profile && profile.ui_language && global.TreasoraI18n) {
+      await global.TreasoraI18n.setLocale(profile.ui_language, { persist: false });
+    }
+
     var progress = await global.TreasoraLessonProgress.fetchProgress();
     var client = global.TreasoraSupabase.client;
 
@@ -25,15 +34,21 @@
     var name =
       (user.user_metadata && user.user_metadata.full_name) ||
       (profile && profile.full_name) ||
-      "back";
+      "";
     var heroTitle = document.querySelector(".hero h1");
     if (heroTitle) {
-      heroTitle.innerHTML = 'Welcome <span class="gold">' + escapeHtml(firstName(name)) + ".</span>";
+      var fn = firstName(name) || t("common.back");
+      heroTitle.innerHTML = t("dashboard.welcome", {
+        name: '<span class="gold">' + escapeHtml(fn) + "</span>",
+      });
     }
 
     var kicker = document.querySelector(".hero .kicker");
-    if (kicker && profile && (profile.is_pro || profile.current_plan === "pro")) {
-      kicker.innerHTML = '<span class="dot"></span> Pro Member';
+    if (kicker) {
+      var isPro = profile && (profile.is_pro || profile.current_plan === "pro");
+      kicker.innerHTML = isPro
+        ? '<span class="dot"></span> ' + t("dashboard.kickerPro")
+        : '<span class="dot"></span> ' + t("dashboard.kickerFree");
     }
 
     if (global.TreasoraBilling) {
@@ -45,7 +60,7 @@
     var progressValue = document.getElementById("progress-value");
     var progressFill = document.getElementById("progress-fill");
     if (progressValue) {
-      progressValue.textContent = completed + " of 20 lessons complete";
+      progressValue.textContent = t("dashboard.lessonsComplete", { count: completed });
     }
     if (progressFill) {
       progressFill.style.width = Math.round((completed / 20) * 100) + "%";
@@ -57,23 +72,28 @@
     if (nextNum && continueTitle && continueBtn) {
       var title = global.TreasoraLessonProgress.LESSON_TITLES[nextNum];
       continueTitle.textContent = "Lesson " + nextNum + " · " + title;
-      continueBtn.textContent = "Continue Lesson " + nextNum + " →";
+      continueBtn.textContent = t("dashboard.continueBtn", { num: nextNum });
       continueBtn.href = "lesson-" + nextNum + ".html";
     } else if (continueTitle && continueBtn) {
-      continueTitle.textContent = "Foundation Program complete!";
-      continueBtn.textContent = "See What's Next →";
+      continueTitle.textContent = t("dashboard.programComplete");
+      continueBtn.textContent = t("dashboard.seeWhatsNext");
       continueBtn.href = "program-complete.html";
     }
 
+    var phaseKeys = ["learn.phase1", "learn.phase2", "learn.phase3", "learn.phase4"];
     var roadmap = document.querySelector(".roadmap");
     if (roadmap) {
       var phases = global.TreasoraLessonProgress.PHASES;
       roadmap.innerHTML = phases
-        .map(function (phase) {
+        .map(function (phase, idx) {
           var status = global.TreasoraLessonProgress.phaseStatus(progress, phase);
           var icon = status === "done" ? "✓" : status === "active" ? "●" : "🔒";
           var statusLabel =
-            status === "done" ? "Complete" : status === "active" ? "In progress" : "Not started";
+            status === "done"
+              ? t("common.complete")
+              : status === "active"
+                ? t("common.inProgress")
+                : t("common.notStarted");
           return (
             '<div class="phase ' +
             status +
@@ -83,7 +103,7 @@
             "</div>" +
             '<div class="phase-info">' +
             '<div class="phase-title">' +
-            phase.title +
+            t(phaseKeys[idx] || "learn.phase1") +
             "</div>" +
             '<div class="phase-sub">' +
             phase.sub +
@@ -118,12 +138,12 @@
   }
 
   function setPassportCard(index, value) {
-    var cards = document.querySelectorAll(".passport-card .pv");
+    var cards = document.querySelectorAll(".passport-grid .passport-card .pv");
     if (cards[index]) cards[index].textContent = value;
   }
 
   function firstName(fullName) {
-    return String(fullName).trim().split(/\s+/)[0] || "back";
+    return String(fullName).trim().split(/\s+/)[0] || "";
   }
 
   function truncate(str, max) {
@@ -140,4 +160,5 @@
   }
 
   document.addEventListener("DOMContentLoaded", load);
+  document.addEventListener("treasora:locale-changed", load);
 })(window);

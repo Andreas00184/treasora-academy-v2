@@ -3,10 +3,14 @@
   var checkoutError = document.getElementById("checkout-error");
   if (!joinProBtn) return;
 
+  function t(key, vars) {
+    return window.TreasoraI18n ? TreasoraI18n.t(key, vars) : key;
+  }
+
   async function startCheckout(session) {
     if (checkoutError) checkoutError.style.display = "none";
     joinProBtn.style.opacity = ".6";
-    joinProBtn.textContent = "Redirecting to checkout…";
+    joinProBtn.textContent = t("joinPro.redirectingCheckout");
 
     try {
       var res = await fetch(CHECKOUT_FUNCTION_URL, {
@@ -22,14 +26,14 @@
       });
       var data = await res.json();
       if (!res.ok || !data.url) {
-        throw new Error(data.error || "Could not start checkout");
+        throw new Error(data.error || t("joinPro.checkoutError"));
       }
       window.location.href = data.url;
     } catch (err) {
       joinProBtn.style.opacity = "1";
-      joinProBtn.textContent = "Start Pro Today";
+      joinProBtn.textContent = t("joinPro.startPro");
       if (checkoutError) {
-        checkoutError.textContent = err.message || "Couldn't start checkout — please try again.";
+        checkoutError.textContent = err.message || t("joinPro.checkoutError");
         checkoutError.style.display = "block";
       }
     }
@@ -38,7 +42,7 @@
   async function openPortal(session) {
     if (checkoutError) checkoutError.style.display = "none";
     joinProBtn.style.opacity = ".6";
-    joinProBtn.textContent = "Opening billing portal…";
+    joinProBtn.textContent = t("joinPro.openingPortal");
 
     try {
       var res = await fetch(BILLING_PORTAL_FUNCTION_URL, {
@@ -51,20 +55,21 @@
       });
       var data = await res.json();
       if (!res.ok || !data.url) {
-        throw new Error(data.error || "Could not open billing portal");
+        throw new Error(data.error || t("joinPro.portalError"));
       }
       window.location.href = data.url;
     } catch (err) {
       joinProBtn.style.opacity = "1";
-      joinProBtn.textContent = "Manage Subscription";
+      joinProBtn.textContent = t("joinPro.manageSubscription");
       if (checkoutError) {
-        checkoutError.textContent = err.message || "Couldn't open billing portal.";
+        checkoutError.textContent = err.message || t("joinPro.portalError");
         checkoutError.style.display = "block";
       }
     }
   }
 
   async function updateButtonForSession() {
+    if (window.TreasoraI18n) await TreasoraI18n.init();
     if (!window.SUPABASE_CONFIGURED) return;
 
     var sessionResult = await supabaseClient.auth.getSession();
@@ -82,13 +87,13 @@
     joinProBtn.href = "#";
 
     if (isPro && hasCustomer) {
-      joinProBtn.textContent = "Manage Subscription";
+      joinProBtn.textContent = t("joinPro.manageSubscription");
       joinProBtn.addEventListener("click", function (e) {
         e.preventDefault();
         openPortal(session);
       });
     } else {
-      joinProBtn.textContent = "Start Pro Today";
+      joinProBtn.textContent = t("joinPro.startPro");
       joinProBtn.addEventListener("click", function (e) {
         e.preventDefault();
         startCheckout(session);
@@ -101,15 +106,16 @@
       checkoutError.style.color = "var(--gold2)";
       checkoutError.style.borderColor = "rgba(212,175,55,.35)";
       checkoutError.style.background = "rgba(212,175,55,.08)";
-      checkoutError.textContent = "Welcome to Pro! Your subscription is active.";
+      checkoutError.textContent = t("joinPro.welcomePro");
       history.replaceState(null, "", "join-pro.html");
     }
     if (params.get("canceled") === "1" && checkoutError) {
       checkoutError.style.display = "block";
-      checkoutError.textContent = "Checkout was canceled — no charge was made.";
+      checkoutError.textContent = t("joinPro.checkoutCanceled");
       history.replaceState(null, "", "join-pro.html");
     }
   }
 
   updateButtonForSession();
+  document.addEventListener("treasora:locale-changed", updateButtonForSession);
 })();

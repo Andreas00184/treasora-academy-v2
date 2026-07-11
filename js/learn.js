@@ -16,7 +16,7 @@
     var fill = document.getElementById("overall-progress-fill");
     var label = document.getElementById("overall-progress-label");
     if (fill) fill.style.width = Math.round((count / 20) * 100) + "%";
-    if (label) label.textContent = count + " of 20 lessons complete";
+    if (label) label.textContent = TreasoraI18n.t("learn.progressLabel", { count: count });
 
     document.querySelectorAll(".lesson-row").forEach(function (row) {
       var href = row.getAttribute("href") || "";
@@ -29,7 +29,7 @@
         var numEl = row.querySelector(".lesson-num");
         if (numEl) numEl.textContent = "✓";
         var arrow = row.querySelector(".lesson-arrow");
-        if (arrow) arrow.textContent = "Done";
+        if (arrow) arrow.textContent = TreasoraI18n ? TreasoraI18n.t("common.done") : "Done";
       }
     });
   }
