@@ -99,6 +99,17 @@
       setPassportCard(2, passport.learning_pace);
       setPassportCard(3, passport.preferred_language);
     }
+
+    if (global.TreasoraKnowledgeScore) {
+      global.TreasoraKnowledgeScore.renderKnowledgeScores(
+        document.getElementById("knowledge-scores"),
+        progress
+      );
+      global.TreasoraKnowledgeScore.renderWeakAreas(
+        document.getElementById("weak-areas"),
+        progress
+      );
+    }
   }
 
   function setPassportCard(index, value) {

@@ -1,7 +1,37 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { corsHeaders } from "../_shared/cors.ts";
+import {
+  buildSystemPrompt,
+  buildWelcomeFallback,
+  buildWelcomePrompt,
+  fetchUserMemory,
+  inferTopic,
+} from "../_shared/memory.ts";
 
 const FREE_DAILY_LIMIT = 5;
+
+async function callOpenAI(
+  openaiKey: string,
+  systemContent: string,
+  chatMessages: { role: string; content: string }[],
+): Promise<string> {
+  const messages = [{ role: "system", content: systemContent }, ...chatMessages];
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${openaiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      messages,
+      max_tokens: 800,
+      temperature: 0.7,
+    }),
+  });
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content || "I couldn't generate a response. Please try again.";
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -34,17 +64,23 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { data: profile } = await admin
-      .from("profiles")
-      .select("is_pro")
-      .eq("id", user.id)
-      .single();
-
-    const isPro = profile?.is_pro === true;
+    const memory = await fetchUserMemory(admin, user.id);
+    const isPro = memory.profile?.is_pro === true;
     const today = new Date().toISOString().slice(0, 10);
 
+    const body = await req.json();
+    const isWelcome = body.welcome === true;
+    const message = String(body.message || "").trim();
+
+    if (!isWelcome && !message) {
+      return new Response(JSON.stringify({ error: "Message required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     let usageCount = 0;
-    if (!isPro) {
+    if (!isPro && !isWelcome) {
       const { data: usage } = await admin
         .from("dominar_daily_usage")
         .select("question_count")
@@ -65,45 +101,55 @@ Deno.serve(async (req) => {
       }
     }
 
-    const body = await req.json();
-    const message = String(body.message || "").trim();
-    if (!message) {
-      return new Response(JSON.stringify({ error: "Message required" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+    const systemPrompt = buildSystemPrompt(memory);
+    let reply: string;
+
+    if (isWelcome) {
+      if (openaiKey) {
+        reply = await callOpenAI(openaiKey, systemPrompt, [
+          {
+            role: "user",
+            content: buildWelcomePrompt(memory),
+          },
+        ]);
+      } else {
+        reply = buildWelcomeFallback(memory);
+      }
+
+      await admin.from("dominar_messages").insert({
+        user_id: user.id,
+        role: "assistant",
+        content: reply,
       });
+
+      return new Response(
+        JSON.stringify({ reply, welcome: true, isPro }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
     }
 
-    let reply: string;
+    const chatHistory = memory.recentMessages.map((m) => ({
+      role: m.role === "assistant" ? "assistant" : "user",
+      content: m.content,
+    }));
+    chatHistory.push({ role: "user", content: message });
+
     if (openaiKey) {
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${openaiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "system",
-              content:
-                "You are Dominar, Treasora Academy's AI financial education assistant. Give clear, practical answers about personal finance, investing, and the Treasora curriculum. Never provide personalized investment advice or guarantee returns. Encourage learning and responsible decisions.",
-            },
-            { role: "user", content: message },
-          ],
-          max_tokens: 800,
-          temperature: 0.7,
-        }),
-      });
-      const data = await res.json();
-      reply = data.choices?.[0]?.message?.content || "I couldn't generate a response. Please try again.";
+      reply = await callOpenAI(openaiKey, systemPrompt, chatHistory);
     } else {
       reply =
-        "Dominar is in demo mode (OpenAI key not configured). For production, set OPENAI_API_KEY in Supabase Edge Function secrets. Your question was received: \"" +
+        "Dominar is in demo mode (OpenAI key not configured). Your question was received: \"" +
         message.slice(0, 120) +
         (message.length > 120 ? "…" : "") +
         "\"";
+    }
+
+    const topic = inferTopic(message);
+    if (topic) {
+      await admin
+        .from("financial_passports")
+        .update({ last_topic_discussed: topic, updated_at: new Date().toISOString() })
+        .eq("user_id", user.id);
     }
 
     if (!isPro) {
@@ -117,16 +163,10 @@ Deno.serve(async (req) => {
       );
     }
 
-    await admin.from("dominar_messages").insert({
-      user_id: user.id,
-      role: "user",
-      content: message,
-    });
-    await admin.from("dominar_messages").insert({
-      user_id: user.id,
-      role: "assistant",
-      content: reply,
-    });
+    await admin.from("dominar_messages").insert([
+      { user_id: user.id, role: "user", content: message },
+      { user_id: user.id, role: "assistant", content: reply },
+    ]);
 
     const remaining = isPro ? null : FREE_DAILY_LIMIT - usageCount - 1;
 

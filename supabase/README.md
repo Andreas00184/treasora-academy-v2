@@ -32,3 +32,15 @@ Password reset emails link to `update-password.html`.
 | `lesson_progress` | Lessons 1–20 completion |
 | `dominar_daily_usage` | Free-tier daily question quota (5/day) |
 | `dominar_messages` | Chat history |
+
+## Phase C — Dominar Memory
+
+Run `migrations/20250711120000_dominar_memory.sql` to add passport memory fields:
+`country`, `portfolio_interests`, `favorite_investments`, `last_topic_discussed`.
+
+The `dominar-chat` function now:
+- Injects learner context (passport, progress, weak areas) into every reply
+- Includes the last 10 messages for conversational continuity
+- Supports `{ "welcome": true }` for personalized welcome messages (no quota cost)
+
+Knowledge Score categories are computed client-side in `js/knowledge-score.js` and shown on the dashboard.

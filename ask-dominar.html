@@ -198,6 +198,30 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
   }
   loadQuota();
 
+  async function loadWelcome(){
+    if (!SUPABASE_CONFIGURED || !supabaseClient) return;
+    if (sessionStorage.getItem('treasora-dominar-welcome')) return;
+    var session = await TreasoraAuth.getSession();
+    if (!session) return;
+    sessionStorage.setItem('treasora-dominar-welcome', '1');
+    showTyping();
+    try {
+      var res = await fetch(DOMINAR_FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + session.access_token
+        },
+        body: JSON.stringify({ welcome: true })
+      });
+      var data = await res.json();
+      hideTyping();
+      if (data.reply) addMessage('dominar', data.reply);
+    } catch (err) {
+      hideTyping();
+    }
+  }
+  loadWelcome();
 
   var pendingFiles = [];
 
