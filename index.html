@@ -233,17 +233,24 @@ footer p{max-width:720px;margin-left:auto!important;margin-right:auto!important;
 .trust-row{display:flex !important;flex-wrap:wrap !important;gap:12px 16px !important;align-items:center !important;}
 .trust-row span{display:inline-flex !important;align-items:center !important;white-space:nowrap !important;}
 
-/* NEW: pricing grid (2-tier: Free / Pro) */
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pricing-grid.two-col{grid-template-columns:repeat(2,1fr);max-width:820px;margin:0 auto}
+/* NEW: pricing grid (Free / Pro) */
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:820px;margin:0 auto}
 .price-card{position:relative;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border-radius:28px;padding:30px;display:flex;flex-direction:column}
 .price-card.featured{border-color:var(--line);background:linear-gradient(180deg,rgba(212,175,55,.10),rgba(255,255,255,.02));transform:translateY(-6px)}
 .price-card h3{font-size:22px;margin-bottom:6px}
 .price-card .tier-tag{color:var(--muted);font-size:14px;margin-bottom:18px}
 .price-card .price{font-size:38px;margin-bottom:4px}
+.price-card .price-note{color:var(--muted);font-size:14px;margin-bottom:6px}
+.price-card .price-savings{color:var(--gold2);font-size:13px;font-weight:800;margin-bottom:8px;min-height:18px}
+.price-card .price-savings:empty{display:none}
 .price-card ul{margin-top:16px;margin-bottom:22px;flex:1}
 .price-card .btn{width:100%}
-@media(max-width:920px){.pricing-grid,.pricing-grid.two-col{grid-template-columns:1fr}.price-card.featured{transform:none}}
+.plan-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:6px;border:1px solid rgba(212,175,55,.28);border-radius:16px;background:rgba(255,255,255,.03);margin-bottom:16px}
+.plan-toggle-btn{border:0;border-radius:12px;padding:12px 8px;background:transparent;color:var(--muted);font-weight:800;font-size:13px;cursor:pointer;line-height:1.3}
+.plan-toggle-btn.active{background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3));color:#050505;box-shadow:0 0 18px rgba(212,175,55,.18)}
+.plan-toggle-btn .save-tag{display:block;font-size:10px;font-weight:900;margin-top:3px;color:var(--gold2)}
+.plan-toggle-btn.active .save-tag{color:#050505;opacity:.85}
+@media(max-width:920px){.pricing-grid{grid-template-columns:1fr}.price-card.featured{transform:none}}
 
 /* NEW: vision strip */
 .vision-strip{text-align:center;padding:44px 0}
@@ -428,28 +435,20 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
  </ul>
  <a class="btn secondary" href="signup.html" data-i18n="home.pricingFreeCta">Create Free Account</a>
  </div>
- <div class="price-card">
- <h3 data-i18n="home.pricingMonthlyTitle">Monthly Plan</h3>
+ <div class="price-card featured" id="home-pro-pricing">
+ <h3 data-i18n="home.pricingProTitle">Pro</h3>
  <div class="tier-tag" data-i18n="home.pricingProTag">Everything becomes unlimited</div>
- <div class="price">$14.99</div>
- <p class="lead" style="font-size:15px;margin-bottom:0" data-i18n="home.pricingMonthlyNote">USD per month</p>
- <ul>
- <li data-i18n="home.pricingProFeature1">All lessons: Beginner to Professional</li>
- <li data-i18n="home.pricingProFeature2">Unlimited Dominar, voice & text</li>
- <li data-i18n="home.pricingProFeature3">Full Dominar memory & personalized multi-year roadmap</li>
- <li data-i18n="home.pricingProFeature4">Dominar Weekly Market Brief, built from your Passport</li>
- <li data-i18n="home.pricingProFeature5">Portfolio simulator: stocks, ETFs, bonds, crypto, real estate</li>
- <li data-i18n="home.pricingProFeature6">Certification system: Beginner to Professional</li>
- </ul>
- <a class="btn primary" href="join-pro.html?plan=monthly" data-i18n="home.pricingMonthlyCta">Start Monthly Pro</a>
+ <div class="plan-toggle" role="tablist" aria-label="Choose billing interval">
+ <button type="button" class="plan-toggle-btn active" data-plan="monthly" role="tab" aria-selected="true" data-i18n="joinPro.toggleMonthly">Monthly</button>
+ <button type="button" class="plan-toggle-btn" data-plan="annual" role="tab" aria-selected="false">
+ <span data-i18n="joinPro.toggleAnnual">Annual</span>
+ <span class="save-tag" data-i18n="joinPro.saveShort">Save ~17%</span>
+ </button>
  </div>
- <div class="price-card featured">
- <div class="popular" data-i18n="home.pricingBestValue">Best value</div>
- <h3 data-i18n="home.pricingAnnualTitle">Annual Plan</h3>
- <div class="tier-tag" data-i18n="home.pricingProTag">Everything becomes unlimited</div>
- <div class="price">$149.90</div>
- <p class="lead" style="font-size:15px;margin-bottom:0" data-i18n="home.pricingAnnualNote">USD per year</p>
- <p class="lead" style="font-size:14px;margin-bottom:0;color:var(--gold2);font-weight:700" data-i18n="home.pricingAnnualSavings">Save ~17% vs paying monthly</p>
+ <div class="price" data-pro-price>$14.99</div>
+ <p class="price-note" data-pro-price-note data-i18n="joinPro.monthlyPriceNote">USD per month</p>
+ <p class="price-savings" data-pro-savings></p>
+ <p class="price-note" data-pro-billing-note data-i18n="joinPro.monthlyNote">Billed monthly. Cancel anytime — no contracts.</p>
  <ul>
  <li data-i18n="home.pricingProFeature1">All lessons: Beginner to Professional</li>
  <li data-i18n="home.pricingProFeature2">Unlimited Dominar, voice & text</li>
@@ -458,7 +457,7 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
  <li data-i18n="home.pricingProFeature5">Portfolio simulator: stocks, ETFs, bonds, crypto, real estate</li>
  <li data-i18n="home.pricingProFeature6">Certification system: Beginner to Professional</li>
  </ul>
- <a class="btn primary" href="join-pro.html?plan=annual" data-i18n="home.pricingAnnualCta">Start Annual Pro</a>
+ <a class="btn primary" data-pro-cta href="join-pro.html?plan=monthly" data-i18n="home.pricingProCta">Join Pro</a>
  </div>
  </div>
  </div>
@@ -473,6 +472,23 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
 
 <script src="js/i18n/i18n.js"></script>
 <script src="js/i18n-init.js"></script>
+<script src="js/pricing-toggle.js"></script>
+<script>
+(function () {
+  function bootHomePricing() {
+    var box = document.getElementById("home-pro-pricing");
+    if (box && window.TreasoraPricingToggle) {
+      TreasoraPricingToggle.init(box, { linkMode: true, linkBase: "join-pro.html" });
+    }
+  }
+  if (window.TreasoraI18n) {
+    TreasoraI18n.init().then(bootHomePricing);
+  } else {
+    bootHomePricing();
+  }
+  document.addEventListener("treasora:locale-changed", bootHomePricing);
+})();
+</script>
 </body>
 
 <!-- TREASORA FINAL: COPY FIXED -->

@@ -1,33 +1,21 @@
 (function () {
-  var monthlyBtn = document.getElementById("join-pro-monthly-btn");
-  var annualBtn = document.getElementById("join-pro-annual-btn");
+  var pricingBox = document.getElementById("pricing-plans");
+  var checkoutBtn = document.getElementById("join-pro-checkout-btn");
   var manageBtn = document.getElementById("join-pro-manage-btn");
   var checkoutError = document.getElementById("checkout-error");
-  if (!monthlyBtn && !annualBtn) return;
+  if (!pricingBox || !checkoutBtn) return;
+
+  var pricingToggle = null;
 
   function t(key, vars) {
     return window.TreasoraI18n ? TreasoraI18n.t(key, vars) : key;
   }
 
-  function setButtonLoading(btn, loadingText) {
-    if (!btn) return;
-    btn.style.opacity = ".6";
-    btn.style.pointerEvents = "none";
-    btn.dataset.defaultText = btn.dataset.defaultText || btn.textContent;
-    btn.textContent = loadingText;
-  }
-
-  function resetButton(btn, textKey) {
-    if (!btn) return;
-    btn.style.opacity = "1";
-    btn.style.pointerEvents = "";
-    btn.textContent = t(textKey);
-  }
-
   async function startCheckout(session, plan) {
     if (checkoutError) checkoutError.style.display = "none";
-    setButtonLoading(monthlyBtn, t("joinPro.redirectingCheckout"));
-    setButtonLoading(annualBtn, t("joinPro.redirectingCheckout"));
+    checkoutBtn.style.opacity = ".6";
+    checkoutBtn.style.pointerEvents = "none";
+    checkoutBtn.textContent = t("joinPro.redirectingCheckout");
 
     try {
       var res = await fetch(CHECKOUT_FUNCTION_URL, {
@@ -48,8 +36,9 @@
       }
       window.location.href = data.url;
     } catch (err) {
-      resetButton(monthlyBtn, "joinPro.startMonthly");
-      resetButton(annualBtn, "joinPro.startAnnual");
+      checkoutBtn.style.opacity = "1";
+      checkoutBtn.style.pointerEvents = "";
+      checkoutBtn.textContent = t("joinPro.startPro");
       if (checkoutError) {
         checkoutError.textContent = err.message || t("joinPro.checkoutError");
         checkoutError.style.display = "block";
@@ -59,7 +48,9 @@
 
   async function openPortal(session) {
     if (checkoutError) checkoutError.style.display = "none";
-    setButtonLoading(manageBtn, t("joinPro.openingPortal"));
+    manageBtn.style.opacity = ".6";
+    manageBtn.style.pointerEvents = "none";
+    manageBtn.textContent = t("joinPro.openingPortal");
 
     try {
       var res = await fetch(BILLING_PORTAL_FUNCTION_URL, {
@@ -76,7 +67,9 @@
       }
       window.location.href = data.url;
     } catch (err) {
-      resetButton(manageBtn, "joinPro.manageSubscription");
+      manageBtn.style.opacity = "1";
+      manageBtn.style.pointerEvents = "";
+      manageBtn.textContent = t("joinPro.manageSubscription");
       if (checkoutError) {
         checkoutError.textContent = err.message || t("joinPro.portalError");
         checkoutError.style.display = "block";
@@ -84,14 +77,15 @@
     }
   }
 
-  function showCheckoutButtons(show) {
-    var plansWrap = document.getElementById("pricing-plans");
-    if (plansWrap) plansWrap.style.display = show ? "" : "none";
-    if (manageBtn) manageBtn.style.display = show ? "none" : "inline-flex";
+  function initPricingToggle() {
+    if (!window.TreasoraPricingToggle) return;
+    pricingToggle = TreasoraPricingToggle.init(pricingBox, { linkMode: false });
   }
 
   async function updateButtonsForSession() {
     if (window.TreasoraI18n) await TreasoraI18n.init();
+    initPricingToggle();
+
     if (!window.SUPABASE_CONFIGURED) return;
 
     var sessionResult = await supabaseClient.auth.getSession();
@@ -106,12 +100,12 @@
     var isPro = profile && (profile.is_pro || profile.current_plan === "pro");
     var hasCustomer = profile && profile.stripe_customer_id;
 
-    if (monthlyBtn) monthlyBtn.href = "#";
-    if (annualBtn) annualBtn.href = "#";
+    checkoutBtn.href = "#";
 
     if (isPro && hasCustomer) {
-      showCheckoutButtons(false);
+      pricingBox.style.display = "none";
       if (manageBtn) {
+        manageBtn.style.display = "inline-flex";
         manageBtn.href = "#";
         manageBtn.textContent = t("joinPro.manageSubscription");
         manageBtn.onclick = function (e) {
@@ -120,21 +114,14 @@
         };
       }
     } else {
-      showCheckoutButtons(true);
-      if (monthlyBtn) {
-        monthlyBtn.textContent = t("joinPro.startMonthly");
-        monthlyBtn.onclick = function (e) {
-          e.preventDefault();
-          startCheckout(session, "monthly");
-        };
-      }
-      if (annualBtn) {
-        annualBtn.textContent = t("joinPro.startAnnual");
-        annualBtn.onclick = function (e) {
-          e.preventDefault();
-          startCheckout(session, "annual");
-        };
-      }
+      pricingBox.style.display = "";
+      if (manageBtn) manageBtn.style.display = "none";
+      checkoutBtn.textContent = t("joinPro.startPro");
+      checkoutBtn.onclick = function (e) {
+        e.preventDefault();
+        var plan = pricingToggle ? pricingToggle.getPlan() : "monthly";
+        startCheckout(session, plan);
+      };
     }
 
     var params = new URLSearchParams(window.location.search);
@@ -153,22 +140,6 @@
     }
   }
 
-  function highlightPlanFromQuery() {
-    var params = new URLSearchParams(window.location.search);
-    var plan = params.get("plan");
-    if (!plan) return;
-    var target =
-      plan === "annual"
-        ? document.querySelector(".price-card.annual")
-        : document.querySelector(".pricing-plans .price-card:not(.annual)");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
-      target.style.outline = "2px solid var(--gold2)";
-      target.style.outlineOffset = "4px";
-    }
-  }
-
   updateButtonsForSession();
-  highlightPlanFromQuery();
   document.addEventListener("treasora:locale-changed", updateButtonsForSession);
 })();
