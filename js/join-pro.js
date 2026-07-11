@@ -1,16 +1,33 @@
 (function () {
-  var joinProBtn = document.getElementById("join-pro-btn");
+  var monthlyBtn = document.getElementById("join-pro-monthly-btn");
+  var annualBtn = document.getElementById("join-pro-annual-btn");
+  var manageBtn = document.getElementById("join-pro-manage-btn");
   var checkoutError = document.getElementById("checkout-error");
-  if (!joinProBtn) return;
+  if (!monthlyBtn && !annualBtn) return;
 
   function t(key, vars) {
     return window.TreasoraI18n ? TreasoraI18n.t(key, vars) : key;
   }
 
-  async function startCheckout(session) {
+  function setButtonLoading(btn, loadingText) {
+    if (!btn) return;
+    btn.style.opacity = ".6";
+    btn.style.pointerEvents = "none";
+    btn.dataset.defaultText = btn.dataset.defaultText || btn.textContent;
+    btn.textContent = loadingText;
+  }
+
+  function resetButton(btn, textKey) {
+    if (!btn) return;
+    btn.style.opacity = "1";
+    btn.style.pointerEvents = "";
+    btn.textContent = t(textKey);
+  }
+
+  async function startCheckout(session, plan) {
     if (checkoutError) checkoutError.style.display = "none";
-    joinProBtn.style.opacity = ".6";
-    joinProBtn.textContent = t("joinPro.redirectingCheckout");
+    setButtonLoading(monthlyBtn, t("joinPro.redirectingCheckout"));
+    setButtonLoading(annualBtn, t("joinPro.redirectingCheckout"));
 
     try {
       var res = await fetch(CHECKOUT_FUNCTION_URL, {
@@ -20,6 +37,7 @@
           Authorization: "Bearer " + session.access_token,
         },
         body: JSON.stringify({
+          plan: plan,
           successUrl: window.location.origin + "/dashboard.html?upgraded=1",
           cancelUrl: window.location.origin + "/join-pro.html?canceled=1",
         }),
@@ -30,8 +48,8 @@
       }
       window.location.href = data.url;
     } catch (err) {
-      joinProBtn.style.opacity = "1";
-      joinProBtn.textContent = t("joinPro.startPro");
+      resetButton(monthlyBtn, "joinPro.startMonthly");
+      resetButton(annualBtn, "joinPro.startAnnual");
       if (checkoutError) {
         checkoutError.textContent = err.message || t("joinPro.checkoutError");
         checkoutError.style.display = "block";
@@ -41,8 +59,7 @@
 
   async function openPortal(session) {
     if (checkoutError) checkoutError.style.display = "none";
-    joinProBtn.style.opacity = ".6";
-    joinProBtn.textContent = t("joinPro.openingPortal");
+    setButtonLoading(manageBtn, t("joinPro.openingPortal"));
 
     try {
       var res = await fetch(BILLING_PORTAL_FUNCTION_URL, {
@@ -59,8 +76,7 @@
       }
       window.location.href = data.url;
     } catch (err) {
-      joinProBtn.style.opacity = "1";
-      joinProBtn.textContent = t("joinPro.manageSubscription");
+      resetButton(manageBtn, "joinPro.manageSubscription");
       if (checkoutError) {
         checkoutError.textContent = err.message || t("joinPro.portalError");
         checkoutError.style.display = "block";
@@ -68,7 +84,13 @@
     }
   }
 
-  async function updateButtonForSession() {
+  function showCheckoutButtons(show) {
+    var plansWrap = document.getElementById("pricing-plans");
+    if (plansWrap) plansWrap.style.display = show ? "" : "none";
+    if (manageBtn) manageBtn.style.display = show ? "none" : "inline-flex";
+  }
+
+  async function updateButtonsForSession() {
     if (window.TreasoraI18n) await TreasoraI18n.init();
     if (!window.SUPABASE_CONFIGURED) return;
 
@@ -84,20 +106,35 @@
     var isPro = profile && (profile.is_pro || profile.current_plan === "pro");
     var hasCustomer = profile && profile.stripe_customer_id;
 
-    joinProBtn.href = "#";
+    if (monthlyBtn) monthlyBtn.href = "#";
+    if (annualBtn) annualBtn.href = "#";
 
     if (isPro && hasCustomer) {
-      joinProBtn.textContent = t("joinPro.manageSubscription");
-      joinProBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        openPortal(session);
-      });
+      showCheckoutButtons(false);
+      if (manageBtn) {
+        manageBtn.href = "#";
+        manageBtn.textContent = t("joinPro.manageSubscription");
+        manageBtn.onclick = function (e) {
+          e.preventDefault();
+          openPortal(session);
+        };
+      }
     } else {
-      joinProBtn.textContent = t("joinPro.startPro");
-      joinProBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        startCheckout(session);
-      });
+      showCheckoutButtons(true);
+      if (monthlyBtn) {
+        monthlyBtn.textContent = t("joinPro.startMonthly");
+        monthlyBtn.onclick = function (e) {
+          e.preventDefault();
+          startCheckout(session, "monthly");
+        };
+      }
+      if (annualBtn) {
+        annualBtn.textContent = t("joinPro.startAnnual");
+        annualBtn.onclick = function (e) {
+          e.preventDefault();
+          startCheckout(session, "annual");
+        };
+      }
     }
 
     var params = new URLSearchParams(window.location.search);
@@ -116,6 +153,6 @@
     }
   }
 
-  updateButtonForSession();
-  document.addEventListener("treasora:locale-changed", updateButtonForSession);
+  updateButtonsForSession();
+  document.addEventListener("treasora:locale-changed", updateButtonsForSession);
 })();

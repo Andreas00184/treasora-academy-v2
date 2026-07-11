@@ -221,6 +221,18 @@
   },
   "joinPro": {
     "title": "Passa a Pro — Treasora Academy",
+    "heroTitleHtml": "Tutto sbloccato. <span class=\"gold\">Niente dimenticato.</span>",
+    "heroLead": "Pro trasforma Dominar da guida utile a vero mentore finanziario personale — che ricorda tutto e costruisce il tuo percorso.",
+    "monthlyPlan": "Piano mensile",
+    "annualPlan": "Piano annuale",
+    "perMonth": " / mese",
+    "perYear": " / anno",
+    "monthlyNote": "Fatturazione mensile. Annulla quando vuoi — nessun contratto.",
+    "annualNote": "Un pagamento all'anno. Stesse funzioni Pro, prezzo migliore.",
+    "annualSavings": "Risparmia ~17% rispetto al mensile",
+    "bestValue": "Miglior valore",
+    "startMonthly": "Inizia Pro mensile",
+    "startAnnual": "Inizia Pro annuale",
     "startPro": "Inizia Pro oggi",
     "redirectingCheckout": "Reindirizzamento al checkout…",
     "manageSubscription": "Gestisci abbonamento",
@@ -228,7 +240,9 @@
     "checkoutError": "Impossibile avviare il checkout — riprova.",
     "portalError": "Impossibile aprire il portale di fatturazione.",
     "welcomePro": "Benvenuto in Pro! Il tuo abbonamento è attivo.",
-    "checkoutCanceled": "Checkout annullato — nessun addebito effettuato."
+    "checkoutCanceled": "Checkout annullato — nessun addebito effettuato.",
+    "backHome": "Non sei pronto, torna alla Home",
+    "signInHint": "Hai già un account? <a href=\"sign-in.html\" style=\"color:var(--gold2)\">Accedi</a> per passare a Pro."
   },
   "askDominar": {
     "title": "Chiedi a Dominar — Treasora Academy",

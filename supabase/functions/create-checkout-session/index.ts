@@ -2,6 +2,17 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import Stripe from "https://esm.sh/stripe@14.21.0?target=deno";
 import { corsHeaders } from "../_shared/cors.ts";
 
+type Plan = "monthly" | "annual";
+
+function resolvePriceId(plan: Plan): string | null {
+  const monthly =
+    Deno.env.get("STRIPE_PRO_MONTHLY_PRICE_ID") || Deno.env.get("STRIPE_PRO_PRICE_ID");
+  const annual = Deno.env.get("STRIPE_PRO_ANNUAL_PRICE_ID");
+
+  if (plan === "annual") return annual || null;
+  return monthly || null;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -17,13 +28,12 @@ Deno.serve(async (req) => {
     }
 
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-    const priceId = Deno.env.get("STRIPE_PRO_PRICE_ID");
     const siteUrl = Deno.env.get("SITE_URL") || "https://treasora.academy";
 
-    if (!stripeKey || !priceId) {
+    if (!stripeKey) {
       return new Response(
         JSON.stringify({
-          error: "Stripe not configured. Set STRIPE_SECRET_KEY and STRIPE_PRO_PRICE_ID in Edge Function secrets.",
+          error: "Stripe not configured. Set STRIPE_SECRET_KEY in Edge Function secrets.",
         }),
         { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
@@ -53,6 +63,20 @@ Deno.serve(async (req) => {
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
     const body = await req.json().catch(() => ({}));
+    const plan: Plan = body.plan === "annual" ? "annual" : "monthly";
+    const priceId = resolvePriceId(plan);
+
+    if (!priceId) {
+      const missing =
+        plan === "annual"
+          ? "STRIPE_PRO_ANNUAL_PRICE_ID"
+          : "STRIPE_PRO_MONTHLY_PRICE_ID (or STRIPE_PRO_PRICE_ID)";
+      return new Response(
+        JSON.stringify({ error: `Stripe price not configured. Set ${missing} in Edge Function secrets.` }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
     const successUrl = body.successUrl || `${siteUrl}/dashboard.html?upgraded=1`;
     const cancelUrl = body.cancelUrl || `${siteUrl}/join-pro.html?canceled=1`;
 
@@ -62,9 +86,9 @@ Deno.serve(async (req) => {
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: successUrl,
       cancel_url: cancelUrl,
-      metadata: { supabase_user_id: user.id },
+      metadata: { supabase_user_id: user.id, plan },
       subscription_data: {
-        metadata: { supabase_user_id: user.id },
+        metadata: { supabase_user_id: user.id, plan },
       },
       allow_promotion_codes: true,
     };

@@ -12,7 +12,7 @@
    - `stripe-webhook`
 5. Set secrets (see `.env.example` in repo root):
    - `OPENAI_API_KEY` — Dominar responses
-   - `STRIPE_SECRET_KEY`, `STRIPE_PRO_PRICE_ID`, `STRIPE_WEBHOOK_SECRET`
+   - `STRIPE_SECRET_KEY`, `STRIPE_PRO_MONTHLY_PRICE_ID`, `STRIPE_PRO_ANNUAL_PRICE_ID`, `STRIPE_WEBHOOK_SECRET`
    - `SITE_URL` — your production domain (checkout redirects)
 
 ## Stripe subscription management
@@ -21,7 +21,10 @@ Run `migrations/20250711130000_stripe_subscriptions.sql` after the initial schem
 
 ### Configure Stripe
 
-1. Create a **Pro** recurring Price in Stripe Dashboard → copy Price ID to `STRIPE_PRO_PRICE_ID`.
+1. Create two **Pro** recurring Prices in Stripe Dashboard:
+   - **Monthly** — $14.99 USD/month → `STRIPE_PRO_MONTHLY_PRICE_ID`
+   - **Annual** — $149.90 USD/year → `STRIPE_PRO_ANNUAL_PRICE_ID`
+   - (`STRIPE_PRO_PRICE_ID` is an optional legacy fallback for monthly)
 2. Enable the **Customer Portal** (Settings → Billing → Customer portal) so users can cancel, update payment method, and view invoices.
 3. Add webhook endpoint: `https://YOUR_PROJECT.supabase.co/functions/v1/stripe-webhook`
 4. Subscribe to events:
@@ -45,7 +48,7 @@ Run `migrations/20250711130000_stripe_subscriptions.sql` after the initial schem
 | `profiles.is_pro` | Synced from subscription (used by Dominar quota) |
 | `billing_history` | Invoice records from webhooks |
 
-Users upgrade via **Join Pro** checkout; **Manage Subscription** on the dashboard opens the Stripe Billing Portal. Webhooks automatically upgrade on payment and downgrade when a subscription is canceled or expires.
+Users upgrade via **Join Pro** (monthly or annual checkout); **Manage Subscription** on the dashboard opens the Stripe Billing Portal. Webhooks automatically upgrade on payment and downgrade when a subscription is canceled or expires.
 
 ## Auth redirect URLs
 
