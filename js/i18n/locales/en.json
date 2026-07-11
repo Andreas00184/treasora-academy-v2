@@ -225,8 +225,8 @@
     "heroLead": "Pro turns Dominar from a helpful guide into a full personal financial mentor — one that remembers everything and builds your path forward.",
     "monthlyPlan": "Monthly Plan",
     "annualPlan": "Annual Plan",
-    "perMonth": " / month",
-    "perYear": " / year",
+    "monthlyPriceNote": "USD per month",
+    "annualPriceNote": "USD per year",
     "monthlyNote": "Billed monthly. Cancel anytime — no contracts.",
     "annualNote": "One payment per year. Same Pro features, better price.",
     "annualSavings": "Save ~17% vs paying monthly",
@@ -279,6 +279,30 @@
     "programComplete": "Program complete →"
   },
   "home": {
-    "title": "Treasora Academy®"
+    "title": "Treasora Academy®",
+    "pricingFreeTitle": "Free",
+    "pricingFreeTag": "Meet Dominar and build your Passport",
+    "pricingFreeNote": "Forever free",
+    "pricingFreeFeature1": "First 20 professional lessons",
+    "pricingFreeFeature2": "Beginner learning path & interactive quizzes",
+    "pricingFreeFeature3": "Dominar AI, limited questions per day",
+    "pricingFreeFeature4": "Full Financial Passport (goals, experience, language, pace)",
+    "pricingFreeFeature5": "Progress tracking & dashboard",
+    "pricingFreeCta": "Create Free Account",
+    "pricingMonthlyTitle": "Monthly Plan",
+    "pricingAnnualTitle": "Annual Plan",
+    "pricingProTag": "Everything becomes unlimited",
+    "pricingMonthlyNote": "USD per month",
+    "pricingAnnualNote": "USD per year",
+    "pricingAnnualSavings": "Save ~17% vs paying monthly",
+    "pricingBestValue": "Best value",
+    "pricingProFeature1": "All lessons: Beginner to Professional",
+    "pricingProFeature2": "Unlimited Dominar, voice & text",
+    "pricingProFeature3": "Full Dominar memory & personalized multi-year roadmap",
+    "pricingProFeature4": "Dominar Weekly Market Brief, built from your Passport",
+    "pricingProFeature5": "Portfolio simulator: stocks, ETFs, bonds, crypto, real estate",
+    "pricingProFeature6": "Certification system: Beginner to Professional",
+    "pricingMonthlyCta": "Start Monthly Pro",
+    "pricingAnnualCta": "Start Annual Pro"
   }
 }

@@ -153,6 +153,22 @@
     }
   }
 
+  function highlightPlanFromQuery() {
+    var params = new URLSearchParams(window.location.search);
+    var plan = params.get("plan");
+    if (!plan) return;
+    var target =
+      plan === "annual"
+        ? document.querySelector(".price-card.annual")
+        : document.querySelector(".pricing-plans .price-card:not(.annual)");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      target.style.outline = "2px solid var(--gold2)";
+      target.style.outlineOffset = "4px";
+    }
+  }
+
   updateButtonsForSession();
+  highlightPlanFromQuery();
   document.addEventListener("treasora:locale-changed", updateButtonsForSession);
 })();

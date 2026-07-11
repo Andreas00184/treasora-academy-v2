@@ -225,8 +225,8 @@
     "heroLead": "Pro trasforma Dominar da guida utile a vero mentore finanziario personale — che ricorda tutto e costruisce il tuo percorso.",
     "monthlyPlan": "Piano mensile",
     "annualPlan": "Piano annuale",
-    "perMonth": " / mese",
-    "perYear": " / anno",
+    "monthlyPriceNote": "USD al mese",
+    "annualPriceNote": "USD all'anno",
     "monthlyNote": "Fatturazione mensile. Annulla quando vuoi — nessun contratto.",
     "annualNote": "Un pagamento all'anno. Stesse funzioni Pro, prezzo migliore.",
     "annualSavings": "Risparmia ~17% rispetto al mensile",
@@ -279,6 +279,30 @@
     "programComplete": "Programma completato →"
   },
   "home": {
-    "title": "Treasora Academy®"
+    "title": "Treasora Academy®",
+    "pricingFreeTitle": "Gratis",
+    "pricingFreeTag": "Conosci Dominar e crea il tuo Passport",
+    "pricingFreeNote": "Gratis per sempre",
+    "pricingFreeFeature1": "Prime 20 lezioni professionali",
+    "pricingFreeFeature2": "Percorso per principianti e quiz interattivi",
+    "pricingFreeFeature3": "Dominar AI, domande giornaliere limitate",
+    "pricingFreeFeature4": "Financial Passport completo (obiettivi, esperienza, lingua, ritmo)",
+    "pricingFreeFeature5": "Monitoraggio progressi e dashboard",
+    "pricingFreeCta": "Crea account gratuito",
+    "pricingMonthlyTitle": "Piano mensile",
+    "pricingAnnualTitle": "Piano annuale",
+    "pricingProTag": "Tutto diventa illimitato",
+    "pricingMonthlyNote": "USD al mese",
+    "pricingAnnualNote": "USD all'anno",
+    "pricingAnnualSavings": "Risparmia ~17% rispetto al mensile",
+    "pricingBestValue": "Miglior valore",
+    "pricingProFeature1": "Tutte le lezioni: da principiante a professionale",
+    "pricingProFeature2": "Dominar illimitato, voce e testo",
+    "pricingProFeature3": "Memoria completa di Dominar e roadmap personalizzata pluriennale",
+    "pricingProFeature4": "Brief di mercato settimanale di Dominar, basato sul tuo Passport",
+    "pricingProFeature5": "Simulatore di portafoglio: azioni, ETF, obbligazioni, crypto, immobiliare",
+    "pricingProFeature6": "Sistema di certificazione: da principiante a professionale",
+    "pricingMonthlyCta": "Inizia Pro mensile",
+    "pricingAnnualCta": "Inizia Pro annuale"
   }
 }

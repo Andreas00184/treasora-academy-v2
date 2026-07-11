@@ -225,8 +225,8 @@
     "heroLead": "Pro convierte a Dominar de guía útil en mentor financiero personal — que recuerda todo y construye tu camino.",
     "monthlyPlan": "Plan mensual",
     "annualPlan": "Plan anual",
-    "perMonth": " / mes",
-    "perYear": " / año",
+    "monthlyPriceNote": "USD al mes",
+    "annualPriceNote": "USD al año",
     "monthlyNote": "Facturación mensual. Cancela cuando quieras — sin contratos.",
     "annualNote": "Un pago al año. Mismas funciones Pro, mejor precio.",
     "annualSavings": "Ahorra ~17% frente al plan mensual",
@@ -279,6 +279,30 @@
     "programComplete": "Programa completado →"
   },
   "home": {
-    "title": "Treasora Academy®"
+    "title": "Treasora Academy®",
+    "pricingFreeTitle": "Gratis",
+    "pricingFreeTag": "Conoce a Dominar y crea tu Passport",
+    "pricingFreeNote": "Gratis para siempre",
+    "pricingFreeFeature1": "Primeras 20 lecciones profesionales",
+    "pricingFreeFeature2": "Ruta para principiantes y cuestionarios interactivos",
+    "pricingFreeFeature3": "Dominar AI, preguntas diarias limitadas",
+    "pricingFreeFeature4": "Financial Passport completo (metas, experiencia, idioma, ritmo)",
+    "pricingFreeFeature5": "Seguimiento de progreso y panel",
+    "pricingFreeCta": "Crear cuenta gratis",
+    "pricingMonthlyTitle": "Plan mensual",
+    "pricingAnnualTitle": "Plan anual",
+    "pricingProTag": "Todo se vuelve ilimitado",
+    "pricingMonthlyNote": "USD al mes",
+    "pricingAnnualNote": "USD al año",
+    "pricingAnnualSavings": "Ahorra ~17% frente al plan mensual",
+    "pricingBestValue": "Mejor valor",
+    "pricingProFeature1": "Todas las lecciones: de principiante a profesional",
+    "pricingProFeature2": "Dominar ilimitado, voz y texto",
+    "pricingProFeature3": "Memoria completa de Dominar y hoja de ruta personalizada plurianual",
+    "pricingProFeature4": "Informe semanal de mercado de Dominar, basado en tu Passport",
+    "pricingProFeature5": "Simulador de cartera: acciones, ETF, bonos, cripto, bienes raíces",
+    "pricingProFeature6": "Sistema de certificación: de principiante a profesional",
+    "pricingMonthlyCta": "Empezar Pro mensual",
+    "pricingAnnualCta": "Empezar Pro anual"
   }
 }
