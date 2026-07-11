@@ -415,60 +415,10 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
     © 2026 Treasora Academy. Education before speculation. Wealth through knowledge.</p>
   </div>
 </footer>
-<!-- ============================================================
-     SUPABASE CONFIG — paste your real values from
-     Project Settings → API, then this page goes live.
-     ============================================================ -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = "YOUR_SUPABASE_URL";
-  const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-
-  // Guard: until real keys are pasted in above, don't try to create a
-  // live client (that would throw and break the whole page).
-  const SUPABASE_CONFIGURED = SUPABASE_URL !== "YOUR_SUPABASE_URL" && SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
-  let supabaseClient = null;
-  if (SUPABASE_CONFIGURED) {
-    try {
-      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    } catch (err) {
-      console.error("Supabase failed to initialize:", err);
-    }
-  }
-
-  const signinForm = document.getElementById('signin-form');
-  const signinError = document.getElementById('signin-error');
-  const signinBtn = document.getElementById('signin-submit-btn');
-
-  signinForm.addEventListener('submit', async function(e){
-    e.preventDefault();
-    signinError.style.display = 'none';
-
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-
-    if (!SUPABASE_CONFIGURED) {
-      signinError.textContent = "This site isn't connected to a real backend yet — sign in is disabled in this preview.";
-      signinError.style.display = 'block';
-      return;
-    }
-
-    signinBtn.disabled = true;
-    signinBtn.textContent = 'Signing in...';
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
-    signinBtn.disabled = false;
-    signinBtn.textContent = 'Sign In';
-
-    if (error) {
-      signinError.textContent = "Incorrect email or password. Please try again.";
-      signinError.style.display = 'block';
-      return;
-    }
-
-    window.location.href = 'dashboard.html';
-  });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/sign-in.js"></script>
 </body>
 </html>

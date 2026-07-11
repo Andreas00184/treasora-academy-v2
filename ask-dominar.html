@@ -123,7 +123,7 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
 <div class="chat-wrap">
   <div class="quota-bar">
     <div class="quota-inner">
-      <div class="quota-text">Free plan: <strong id="quota-left">7</strong> of 10 questions left today</div>
+      <div class="quota-text">Free plan: <strong id="quota-left">5</strong> of 5 questions left today</div>
       <a class="quota-upgrade" href="join-pro.html">Unlimited on Pro →</a>
     </div>
   </div>
@@ -160,29 +160,10 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
   </div>
 </div>
 
-<!-- ============================================================
-     SUPABASE CONFIG — paste your real values, then Dominar is live.
-     ============================================================ -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = "YOUR_SUPABASE_URL";
-  const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-  const DOMINAR_FUNCTION_URL = "YOUR_SUPABASE_URL/functions/v1/dominar-chat"; // from Part 4 of the setup guide
-
-  // Guard: until real keys are pasted in above, don't try to create a
-  // live client (that would throw and break the whole page). The chat
-  // UI still works below, it just can't reach a real backend yet.
-  const SUPABASE_CONFIGURED = SUPABASE_URL !== "YOUR_SUPABASE_URL" && SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
-  let supabaseClient = null;
-  if (SUPABASE_CONFIGURED) {
-    try {
-      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    } catch (err) {
-      console.error("Supabase failed to initialize:", err);
-    }
-  }
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
 <script>
 (function(){
   var messagesInner = document.getElementById('messages-inner');
@@ -198,6 +179,25 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
   var listeningNote = document.getElementById('listening-note');
   var quotaLeftEl = document.getElementById('quota-left');
   var quotaLeft = parseInt(quotaLeftEl.textContent, 10);
+
+  async function loadQuota(){
+    if (!SUPABASE_CONFIGURED || !supabaseClient) return;
+    var session = await TreasoraAuth.getSession();
+    if (!session) return;
+    var profile = await TreasoraAuth.getProfile();
+    if (profile && profile.is_pro) {
+      document.querySelector('.quota-text').innerHTML = 'Pro plan: <strong>unlimited</strong> questions';
+      quotaLeft = 9999;
+      return;
+    }
+    var today = new Date().toISOString().slice(0, 10);
+    var res = await supabaseClient.from('dominar_daily_usage').select('question_count').eq('usage_date', today).maybeSingle();
+    var used = (res.data && res.data.question_count) || 0;
+    quotaLeft = Math.max(0, 5 - used);
+    quotaLeftEl.textContent = quotaLeft;
+  }
+  loadQuota();
+
 
   var pendingFiles = [];
 
@@ -411,7 +411,16 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
       });
       const data = await response.json();
       if (!response.ok) {
+        if (data.code === "LIMIT_REACHED") return data.error || "Daily limit reached.";
         return data.error || "Dominar is having trouble responding right now. Please try again.";
+      }
+      if (typeof data.remaining === 'number') {
+        quotaLeft = data.remaining;
+        quotaLeftEl.textContent = quotaLeft;
+      }
+      if (data.isPro && document.querySelector('.quota-text')) {
+        document.querySelector('.quota-text').innerHTML = 'Pro plan: <strong>unlimited</strong> questions';
+        quotaLeft = 9999;
       }
       return data.reply;
     } catch (err) {
@@ -434,9 +443,6 @@ nav .pro{color:#050505;font-weight:900;background:linear-gradient(135deg,var(--g
     pendingFiles = [];
     attachRow.innerHTML = '';
     autoGrow();
-
-    quotaLeft -= 1;
-    quotaLeftEl.textContent = Math.max(quotaLeft, 0);
 
     showTyping();
     getDominarReply(text, filesSent.length > 0).then(function(reply){

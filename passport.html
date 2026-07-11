@@ -223,93 +223,10 @@ footer p{font-size:14px;line-height:1.7;color:#888;max-width:620px;margin:0 auto
     © 2026 Treasora Academy. Education before speculation. Wealth through knowledge.</p>
   </div>
 </footer>
-<!-- ============================================================
-     SUPABASE CONFIG — paste your real values from
-     Project Settings → API, then this page saves for real.
-     ============================================================ -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = "YOUR_SUPABASE_URL";
-  const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-
-  // Guard: until real keys are pasted in above, don't try to create a
-  // live client (that would throw and break the whole page).
-  const SUPABASE_CONFIGURED = SUPABASE_URL !== "YOUR_SUPABASE_URL" && SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
-  let supabaseClient = null;
-  if (SUPABASE_CONFIGURED) {
-    try {
-      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    } catch (err) {
-      console.error("Supabase failed to initialize:", err);
-    }
-  }
-</script>
-
-<script>
-document.querySelectorAll('.chip').forEach(function(chip){
-  chip.addEventListener('click', function(){
-    document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); });
-    chip.classList.add('active');
-    var goalField = document.getElementById('goal');
-    if (goalField) { goalField.value = chip.getAttribute('data-goal'); }
-  });
-});
-
-var passportForm = document.getElementById('passport-form');
-var formError = document.getElementById('form-error');
-var ctaSection = document.getElementById('cta-section');
-
-if (passportForm) {
-  passportForm.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var level = document.getElementById('level').value.trim();
-    var language = document.getElementById('language').value.trim();
-    var pace = document.getElementById('pace').value.trim();
-    var goal = document.getElementById('goal').value.trim();
-
-    if (!level || !language || !pace || !goal) {
-      formError.hidden = true;
-      formError.hidden = false;
-      formError.textContent = "Please fill in every field above so Dominar can build your path.";
-      formError.scrollIntoView({behavior: 'smooth', block: 'center'});
-      return;
-    }
-
-    if (!SUPABASE_CONFIGURED) {
-      formError.hidden = false;
-      formError.textContent = "This site isn't connected to a real backend yet — your Passport can't be saved in this preview.";
-      formError.scrollIntoView({behavior: 'smooth', block: 'center'});
-      return;
-    }
-
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) {
-      formError.hidden = false;
-      formError.textContent = "Please sign in first — your session may have expired.";
-      formError.scrollIntoView({behavior: 'smooth', block: 'center'});
-      return;
-    }
-
-    const { error } = await supabaseClient.from('financial_passports').upsert({
-      user_id: user.id,
-      knowledge_level: level,
-      preferred_language: language,
-      learning_pace: pace,
-      biggest_goal: goal
-    });
-
-    if (error) {
-      formError.hidden = false;
-      formError.textContent = "Something went wrong saving your Passport: " + error.message;
-      formError.scrollIntoView({behavior: 'smooth', block: 'center'});
-      return;
-    }
-
-    formError.hidden = true;
-    ctaSection.hidden = false;
-    ctaSection.scrollIntoView({behavior: 'smooth', block: 'start'});
-  });
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/passport.js"></script>
 </body>
 </html>

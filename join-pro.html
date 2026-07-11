@@ -149,66 +149,10 @@ footer p{color:var(--muted);font-size:13px}
     © 2026 Treasora Academy. Education before speculation. Wealth through knowledge.</p>
   </div>
 </footer>
-<!-- ============================================================
-     SUPABASE CONFIG — paste your real values, then Pro checkout works.
-     ============================================================ -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = "YOUR_SUPABASE_URL";
-  const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-  const CHECKOUT_FUNCTION_URL = "YOUR_SUPABASE_URL/functions/v1/create-checkout-session";
-
-  const SUPABASE_CONFIGURED = SUPABASE_URL !== "YOUR_SUPABASE_URL" && SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
-  let supabaseClient = null;
-  if (SUPABASE_CONFIGURED) {
-    try {
-      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    } catch (err) {
-      console.error("Supabase failed to initialize:", err);
-    }
-  }
-
-  var joinProBtn = document.getElementById('join-pro-btn');
-  var checkoutError = document.getElementById('checkout-error');
-
-  async function updateButtonForSession(){
-    if (!SUPABASE_CONFIGURED) return; // stays as "sign up" link in preview mode
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (session) {
-      // Already signed in — clicking should go straight to Stripe checkout
-      joinProBtn.textContent = 'Start Pro Today';
-      joinProBtn.href = '#';
-      joinProBtn.addEventListener('click', async function(e){
-        e.preventDefault();
-        checkoutError.style.display = 'none';
-        joinProBtn.style.opacity = '.6';
-        joinProBtn.textContent = 'Redirecting to checkout...';
-
-        try {
-          const res = await fetch(CHECKOUT_FUNCTION_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + session.access_token
-            }
-          });
-          const data = await res.json();
-          if (!res.ok || !data.url) {
-            throw new Error(data.error || 'Could not start checkout');
-          }
-          window.location.href = data.url;
-        } catch (err) {
-          joinProBtn.style.opacity = '1';
-          joinProBtn.textContent = 'Start Pro Today';
-          checkoutError.textContent = "Couldn't start checkout — please try again.";
-          checkoutError.style.display = 'block';
-        }
-      });
-    }
-    // If not signed in, button keeps its default behavior: href="signup.html"
-  }
-
-  updateButtonForSession();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/join-pro.js"></script>
 </body>
 </html>
