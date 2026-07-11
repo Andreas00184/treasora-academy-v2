@@ -20,7 +20,7 @@ NAV_ITEMS = [
 
 FOOTER_HTML = """<footer>
   <div class="container">
-    <p>Privacy Policy · Terms of Service · <a href="contact.html">Contact</a><br>
+    <p><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="contact.html">Contact</a><br>
     © 2026 Treasora Academy. Education before speculation. Wealth through knowledge.</p>
   </div>
 </footer>"""
@@ -73,7 +73,7 @@ def replace_base64_logos(text: str) -> str:
     )
     text = re.sub(
         r'(<img\s+)src="data:image/png;base64,[A-Za-z0-9+/=]+"',
-        r'\1src="assets/dominar-icon-v5.png" alt="Dominar"',
+        r'\1src="assets/dominar-icon.png" alt="Dominar"',
         text,
     )
     while re.search(r'alt="[^"]*"\s+alt="', text):
@@ -82,9 +82,9 @@ def replace_base64_logos(text: str) -> str:
 
 
 def replace_dominar_refs(text: str) -> str:
-    text = text.replace("assets/dominar-icon.jpg", "assets/dominar-icon-v5.png")
-    text = text.replace("assets/dominar-avatar.jpg", "assets/dominar-icon-v5.png")
-    text = text.replace("assets/dominar-icon.png", "assets/dominar-icon-v5.png")
+    text = text.replace("assets/dominar-icon.jpg", "assets/dominar-icon.png")
+    text = text.replace("assets/dominar-avatar.jpg", "assets/dominar-icon.png")
+    text = text.replace("assets/dominar-icon-v5.png", "assets/dominar-icon.png")
     text = text.replace("object-position:center;", "object-position:center 30%;")
     text = text.replace(
         "object-fit:cover;object-position:center;border-radius:inherit;display:block",
