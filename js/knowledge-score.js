@@ -85,7 +85,7 @@
           cat.totalLessons === 0
             ? (global.TreasoraI18n ? global.TreasoraI18n.t("common.comingSoon") : "Coming soon")
             : cat.completedLessons === 0
-              ? (global.TreasoraI18n ? global.TreasoraI18n.t("common.notStarted") : "Not started")
+              ? (global.TreasoraI18n ? global.TreasoraI18n.t("common.notStarted") : "Not Started")
               : pct + "%";
         var width = cat.totalLessons === 0 ? 0 : cat.completedLessons === 0 ? 0 : pct;
         return (

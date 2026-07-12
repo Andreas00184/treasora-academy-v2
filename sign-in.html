@@ -374,22 +374,22 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
  <section class="hero">
   <div class="container">
    <div class="signup-wrap">
-    <div class="kicker"><span class="dot"></span> Welcome Back</div>
-    <h1>Sign In To<br><span class="gold">Continue.</span></h1>
-    <p class="lead">Pick up right where you and Dominar left off — your progress, goals, and Passport are all still here.</p>
+    <div class="kicker"><span class="dot"></span> <span data-i18n="auth.signInKicker">Welcome Back</span></div>
+    <h1 data-i18n-html="auth.signInHeadingHtml">Sign In.<br><span class="gold">Continue.</span></h1>
+    <p class="lead" data-i18n="auth.signInLead">Pick up where you left off — your lessons, Financial Passport, and Dominar are waiting.</p>
 
     <div class="signup-card">
      <form id="signin-form">
-      <label for="email">Email Address</label>
-      <input id="email" name="email" type="email" placeholder="you@example.com" required>
+      <label for="email" data-i18n="auth.email">Email Address</label>
+      <input id="email" name="email" type="email" data-i18n-placeholder="auth.emailPlaceholder" placeholder="you@example.com" required>
 
-      <label for="password">Password</label>
+      <label for="password" data-i18n="auth.password">Password</label>
       <input id="password" name="password" type="password" placeholder="Your password" required>
 
       <div id="signin-error" style="display:none;color:#ff8a8a;font-size:14px;font-weight:700;margin-top:14px;padding:10px 14px;border:1px solid rgba(255,120,120,.35);border-radius:14px;background:rgba(255,120,120,.06)"></div>
 
       <div class="actions" style="margin-top:26px;">
-       <button class="btn primary" type="submit" id="signin-submit-btn">Sign In</button>
+       <button class="btn primary" type="submit" id="signin-submit-btn" data-i18n="auth.signInBtn">Sign In</button>
       </div>
 
       <p class="signup-note" style="text-align:center;">
@@ -399,12 +399,12 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
     </div>
 
     <div class="signup-benefits">
-     <div class="signup-benefit">20 Beginner Lessons</div>
-     <div class="signup-benefit">Dominar AI, Your Mentor</div>
-     <div class="signup-benefit">Personal Financial Passport</div>
+     <div class="signup-benefit" data-i18n="auth.benefitLessons">20 Beginner Lessons</div>
+     <div class="signup-benefit" data-i18n="auth.benefitDominar">Dominar AI, Your Mentor</div>
+     <div class="signup-benefit" data-i18n="auth.benefitPassport">Financial Passport</div>
     </div>
 
-    <p class="signup-note" style="text-align:center;margin-top:24px;">Don't have an account yet? <a href="signup.html" style="color:var(--gold2);font-weight:850;">Sign up free</a></p>
+    <p class="signup-note" style="text-align:center;margin-top:24px;"><span data-i18n="auth.noAccount">Don't have an account yet?</span> <a href="signup.html" style="color:var(--gold2);font-weight:850;" data-i18n="auth.signUpLink">Sign up free</a></p>
    </div>
   </div>
  </section>
@@ -416,13 +416,12 @@ h2.section-title{font-size:32px!important;line-height:1.12!important;letter-spac
     © 2026 Treasora Academy. Education before speculation. Wealth through knowledge.</p>
   </div>
 </footer>
+<script src="js/i18n/i18n.js"></script>
+<script src="js/i18n-init.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/supabase-client.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/sign-in.js"></script>
-
-<script src="js/i18n/i18n.js"></script>
-<script src="js/i18n-init.js"></script>
 </body>
 </html>
