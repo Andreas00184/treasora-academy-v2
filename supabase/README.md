@@ -22,8 +22,8 @@ Run `migrations/20250711130000_stripe_subscriptions.sql` after the initial schem
 ### Configure Stripe
 
 1. Create two **Pro** recurring Prices in Stripe Dashboard:
-   - **Monthly** — $14.99 USD/month → `STRIPE_PRO_MONTHLY_PRICE_ID`
-   - **Annual** — $149.90 USD/year → `STRIPE_PRO_ANNUAL_PRICE_ID`
+   - **Monthly** — $19.99 USD/month → `STRIPE_PRO_MONTHLY_PRICE_ID`
+   - **Annual** — $199.00 USD/year → `STRIPE_PRO_ANNUAL_PRICE_ID`
    - (`STRIPE_PRO_PRICE_ID` is an optional legacy fallback for monthly)
 2. Enable the **Customer Portal** (Settings → Billing → Customer portal) so users can cancel, update payment method, and view invoices.
 3. Add webhook endpoint: `https://YOUR_PROJECT.supabase.co/functions/v1/stripe-webhook`
