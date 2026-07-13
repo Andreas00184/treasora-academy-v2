@@ -1,13 +1,13 @@
 (function (global) {
   var PLANS = {
     monthly: {
-      price: "$14.99",
+      price: "$19.99",
       priceNoteKey: "joinPro.monthlyPriceNote",
       billingNoteKey: "joinPro.monthlyNote",
       savingsKey: null,
     },
     annual: {
-      price: "$149.90",
+      price: "$199.00",
       priceNoteKey: "joinPro.annualPriceNote",
       billingNoteKey: "joinPro.annualNote",
       savingsKey: "joinPro.annualSavings",
