@@ -262,6 +262,26 @@ footer p{max-width:720px;margin-left:auto!important;margin-right:auto!important;
   line-height:1.6;
   margin-top:16px;
 }
+.signup-lang-options{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.signup-lang-option{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  color:var(--silver);
+  font-size:15px;
+}
+.signup-lang-sep{
+  color:rgba(255,255,255,.22);
+  font-size:13px;
+  user-select:none;
+}
 .signup-benefits{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -312,10 +332,10 @@ footer p{max-width:720px;margin-left:auto!important;margin-right:auto!important;
     <div class="signup-card">
      <form id="signup-form">
       <label data-i18n="language.label">Preferred language</label>
-      <div class="lang-options" style="display:grid;gap:10px;margin-bottom:20px">
-       <label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="ui-language" value="en" checked> 🇺🇸 <span data-i18n="language.en">English</span></label>
-       <label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="ui-language" value="it"> 🇮🇹 <span data-i18n="language.it">Italiano</span></label>
-       <label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="radio" name="ui-language" value="es"> 🇪🇸 <span data-i18n="language.es">Español</span></label>
+      <div class="signup-lang-options">
+       <label class="signup-lang-option"><input type="radio" name="ui-language" value="en" checked> 🇺🇸 <span data-i18n="language.en">English</span></label>
+       <span class="signup-lang-sep" aria-hidden="true">|</span>
+       <label class="signup-lang-option"><input type="radio" name="ui-language" value="es"> 🇪🇸 <span data-i18n="language.es">Español</span></label>
       </div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:18px" data-i18n="language.hint">Choose the language for the website and Dominar.</p>
 
