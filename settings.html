@@ -49,17 +49,7 @@ footer p{color:var(--muted);font-size:13px}
 <header>
   <div class="container header-inner">
     <a class="logo" href="index.html"><img src="assets/treasora-logo.png" alt="Treasora Academy"></a>
-    <nav data-i18n-aria="nav.mainNav" aria-label="Main navigation">
-      <a href="index.html" data-i18n="nav.home">Home</a>
-      <a href="learn.html" data-i18n="nav.learn">Learn</a>
-      <a href="ask-dominar.html" data-i18n="nav.askDominar">Ask Dominar</a>
-      <a href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
-      <a href="passport.html" data-i18n="nav.passport">Financial Passport</a>
-      <a href="join-pro.html" class="pro" data-i18n="nav.joinPro">Join Pro</a>
-      <a href="settings.html" class="current" data-i18n="nav.settings">Settings</a>
-      <a href="sign-in.html" data-i18n="nav.signIn">Sign In</a>
-      <a href="contact.html" data-i18n="nav.contact">Contact</a>
-    </nav>
+    <nav id="site-nav" class="site-nav" data-i18n-aria="nav.mainNav" aria-label="Main navigation"></nav>
   </div>
 </header>
 
@@ -96,6 +86,15 @@ footer p{color:var(--muted);font-size:13px}
   </div>
 </main>
 
+<div class="footer-lang-bar" id="footer-lang-bar">
+  <span class="footer-lang-label" data-i18n="footer.language">Language</span>
+  <div class="footer-lang-options">
+    <button type="button" class="footer-lang-btn" data-locale="en">🇺🇸 English</button>
+    <span class="footer-lang-sep" aria-hidden="true">|</span>
+    <button type="button" class="footer-lang-btn" data-locale="es">🇪🇸 Español</button>
+  </div>
+</div>
+
 <footer>
   <div class="container">
     <p><a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a> · <a href="terms.html" data-i18n="footer.terms">Terms of Service</a> · <a href="contact.html" data-i18n="nav.contact">Contact</a><br>
@@ -110,6 +109,8 @@ footer p{color:var(--muted);font-size:13px}
 <script src="js/i18n/i18n.js"></script>
 <script src="js/i18n-init.js"></script>
 <script src="js/billing.js"></script>
+<script src="js/nav.js"></script>
+
 <script src="js/settings.js"></script>
 </body>
 </html>
