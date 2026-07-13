@@ -50,7 +50,8 @@ Unzip locally, then run `python3 -m http.server 8080` and open http://localhost:
 | What to change | File(s) |
 |----------------|---------|
 | Homepage content & layout | `index.html` |
-| Navigation & footer (shared CSS) | `css/site.css` |
+| Typography tokens (phone / laptop) | `css/tokens.css` |
+| Scale application (all pages) | `css/refine-scale.css` (via `site.css`) |
 | English UI text (nav, buttons, labels) | `js/i18n/locales/en.json` |
 | Italian / Spanish UI text | `js/i18n/locales/it.json`, `js/i18n/locales/es.json` |
 | Pricing / Join Pro page | `join-pro.html`, `js/join-pro.js` |

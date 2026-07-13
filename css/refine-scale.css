@@ -1,0 +1,149 @@
+/**
+ * Treasora Academy — applies standard tokens sitewide
+ */
+
+/* ── Shared header / nav ── */
+.logo img {
+  width: var(--treasora-logo) !important;
+  max-width: 72vw !important;
+}
+
+.header-inner {
+  padding: var(--treasora-header-pad-y) 0 !important;
+  gap: var(--treasora-header-gap) !important;
+}
+
+nav a {
+  font-size: var(--treasora-nav) !important;
+  padding: var(--treasora-nav-pad-y) var(--treasora-nav-pad-x) !important;
+  min-height: var(--treasora-nav-height) !important;
+}
+
+/* ── Homepage ── */
+.page-home .hero {
+  padding: var(--treasora-hero-pad-y) 0 calc(var(--treasora-hero-pad-y) * 0.75) !important;
+}
+
+.page-home .hero h1 {
+  font-size: var(--treasora-hero) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.04em !important;
+  margin-bottom: 16px !important;
+}
+
+.page-home .kicker {
+  font-size: var(--treasora-kicker) !important;
+}
+
+.page-home .lead,
+.page-home .hero .lead {
+  font-size: var(--treasora-lead) !important;
+  line-height: 1.55 !important;
+}
+
+.page-home .free {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+.page-home .trust-row {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+.page-home .btn {
+  min-height: var(--treasora-btn-height) !important;
+  font-size: var(--treasora-btn-text) !important;
+}
+
+.page-home .panel h2 {
+  font-size: var(--treasora-panel-title) !important;
+}
+
+.page-home .panel p,
+.page-home .chat,
+.page-home .lock {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+.page-home section {
+  padding: var(--treasora-section-pad-y) 0 !important;
+}
+
+.page-home .section-title,
+.page-home h2.section-title {
+  font-size: var(--treasora-section) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.04em !important;
+}
+
+.page-home .section-lead,
+.page-home .vision-strip p {
+  font-size: var(--treasora-lead) !important;
+}
+
+.page-home .newsletter .section-title,
+.page-home .pro-box .section-title {
+  font-size: var(--treasora-section-sm) !important;
+}
+
+.page-home .card {
+  padding: var(--treasora-card-pad) !important;
+  min-height: 0 !important;
+}
+
+.page-home .icon {
+  width: var(--treasora-icon) !important;
+  height: var(--treasora-icon) !important;
+  font-size: var(--treasora-icon-glyph) !important;
+}
+
+.page-home .card h3,
+.page-home .card-head h3,
+.page-home .step h3 {
+  font-size: var(--treasora-card-title) !important;
+}
+
+.page-home .card p,
+.page-home .step p {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+.page-home .card a {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+.page-home .step strong {
+  font-size: var(--treasora-step-num) !important;
+}
+
+.page-home .price-card .price,
+.page-home .price {
+  font-size: var(--treasora-price) !important;
+}
+
+.page-home .price-card li,
+.page-home li {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+.page-home .price-card h3 {
+  font-size: var(--treasora-card-title) !important;
+}
+
+/* ── Auth pages ── */
+.page-auth .hero h1 {
+  font-size: var(--treasora-hero) !important;
+  line-height: 1.08 !important;
+}
+
+.page-auth .lead {
+  font-size: var(--treasora-lead) !important;
+}
+
+.page-auth .btn {
+  min-height: var(--treasora-btn-height) !important;
+  font-size: var(--treasora-btn-text) !important;
+}
+
+.page-auth .signup-benefit {
+  font-size: var(--treasora-body-sm) !important;
+}
