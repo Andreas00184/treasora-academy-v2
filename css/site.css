@@ -1,4 +1,5 @@
 /* Treasora Academy — shared site styles */
+@import url("refine-scale.css");
 :root {
   --black: #020202;
   --black2: #070604;
@@ -28,8 +29,8 @@ header {
 
 .logo img {
   display: block;
-  width: 220px;
-  max-width: 70vw;
+  width: 185px;
+  max-width: 72vw;
   height: auto;
   margin: 0 auto;
   background: transparent !important;
