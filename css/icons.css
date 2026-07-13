@@ -1,0 +1,49 @@
+/**
+ * Treasora Academy — Lucide stroke icons (gold design system)
+ */
+.icon[data-treasora-icon],
+.feature-icon[data-treasora-icon],
+.memory-head .icon[data-treasora-icon],
+.trophy[data-treasora-icon],
+.phase-icon[data-treasora-icon] {
+  display: grid;
+  place-items: center;
+}
+
+.treasora-icon-svg {
+  width: 56%;
+  height: 56%;
+  stroke: var(--gold2);
+  color: var(--gold2);
+  flex-shrink: 0;
+}
+
+.trophy .treasora-icon-svg {
+  width: 52%;
+  height: 52%;
+}
+
+.phase-icon .treasora-icon-svg {
+  width: 50%;
+  height: 50%;
+}
+
+.chip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.chip-icon .treasora-icon-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+}
