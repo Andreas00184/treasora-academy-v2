@@ -15,7 +15,16 @@ NAV_REPLACEMENT = (
     'aria-label="Main navigation"></nav>'
 )
 
-FOOTER_LANG = '<div class="footer-lang-bar" id="footer-lang-bar"></div>\n\n'
+FOOTER_LANG = """<div class="footer-lang-bar" id="footer-lang-bar">
+  <span class="footer-lang-label" data-i18n="footer.language">Language</span>
+  <div class="footer-lang-options">
+    <button type="button" class="footer-lang-btn" data-locale="en">🇺🇸 English</button>
+    <span class="footer-lang-sep" aria-hidden="true">|</span>
+    <button type="button" class="footer-lang-btn" data-locale="es">🇪🇸 Español</button>
+  </div>
+</div>
+
+"""
 
 FULL_NAV_SCRIPTS = """<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
