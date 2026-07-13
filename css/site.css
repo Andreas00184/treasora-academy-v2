@@ -1,6 +1,5 @@
 /* Treasora Academy — shared site styles */
 @import url("tokens.css");
-@import url("icons.css");
 
 :root {
   --black: #020202;
