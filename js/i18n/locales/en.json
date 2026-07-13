@@ -14,9 +14,13 @@
     "settings": "Settings",
     "signIn": "Sign In",
     "contact": "Contact",
+    "profile": "Profile",
+    "billing": "Billing",
+    "logout": "Log Out",
     "mainNav": "Main navigation"
   },
   "footer": {
+    "language": "Language",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "contact": "Contact",

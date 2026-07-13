@@ -18,10 +18,30 @@
   gap: var(--treasora-header-gap) !important;
 }
 
-nav a {
+nav,
+nav.site-nav {
+  gap: 10px !important;
+}
+
+nav a,
+.nav-profile-btn {
   font-size: var(--treasora-nav) !important;
   padding: var(--treasora-nav-pad-y) var(--treasora-nav-pad-x) !important;
   min-height: var(--treasora-nav-height) !important;
+}
+
+@media (max-width: 560px) {
+  nav,
+  nav.site-nav {
+    gap: 11px !important;
+  }
+}
+
+@media (min-width: 561px) {
+  nav,
+  nav.site-nav {
+    gap: 12px !important;
+  }
 }
 
 /* ══════════════════════════════════════
