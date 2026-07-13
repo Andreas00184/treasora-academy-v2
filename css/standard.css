@@ -225,13 +225,21 @@ label {
 
 /* ══════════════════════════════════════
    FEATURE CARDS (homepage .cards grids)
-   Restored proportions from pre-shrink refinement
    ══════════════════════════════════════ */
+.cards .card {
+  padding: 15px 18px !important;
+}
+
+.cards .card-head {
+  gap: 7px !important;
+  margin-bottom: 7px !important;
+}
+
 .cards .icon {
-  width: 62px !important;
-  height: 62px !important;
-  font-size: 29px !important;
-  border-radius: 20px !important;
+  width: 74px !important;
+  height: 74px !important;
+  font-size: 35px !important;
+  border-radius: 24px !important;
 }
 
 .cards .card h3,
@@ -246,10 +254,14 @@ label {
 }
 
 @media (max-width: 560px) {
+  .cards .card {
+    padding: 13px 16px !important;
+  }
+
   .cards .icon {
-    width: 72px !important;
-    height: 72px !important;
-    font-size: 34px !important;
+    width: 86px !important;
+    height: 86px !important;
+    font-size: 41px !important;
   }
 
   .cards .card h3,
@@ -259,7 +271,7 @@ label {
   }
 
   .cards .card p {
-    font-size: 16.5px !important;
+    font-size: 18px !important;
     line-height: 1.62 !important;
   }
 }
