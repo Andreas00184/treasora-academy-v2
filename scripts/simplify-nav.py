@@ -31,10 +31,11 @@ FULL_NAV_SCRIPTS = """<script src="https://cdn.jsdelivr.net/npm/@supabase/supaba
 <script src="js/supabase-client.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/billing.js"></script>
+<script src="js/treasora-icons.js"></script>
 <script src="js/nav.js"></script>
 """
 
-NAV_ONLY_SCRIPT = '<script src="js/nav.js"></script>\n'
+NAV_ONLY_SCRIPT = '<script src="js/treasora-icons.js"></script>\n<script src="js/nav.js"></script>\n'
 
 
 def ensure_footer_lang(text: str) -> str:
