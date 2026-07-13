@@ -1,0 +1,169 @@
+/**
+ * Treasora Academy — STANDARD sizing (phone + laptop)
+ * MUST load last in <head> (after any inline <style>).
+ * Tokens defined in tokens.css via site.css.
+ */
+
+/* ── Header / nav (every page) ── */
+.logo img {
+  width: var(--treasora-logo) !important;
+  max-width: 72vw !important;
+  height: auto !important;
+}
+
+.header-inner {
+  padding: var(--treasora-header-pad-y) 0 !important;
+  gap: var(--treasora-header-gap) !important;
+}
+
+nav a {
+  font-size: var(--treasora-nav) !important;
+  padding: var(--treasora-nav-pad-y) var(--treasora-nav-pad-x) !important;
+  min-height: var(--treasora-nav-height) !important;
+}
+
+/* ── Hero headlines (every page) ── */
+.hero h1,
+.celebrate h1,
+.lesson-hero h1 {
+  font-size: var(--treasora-hero) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.04em !important;
+}
+
+/* ── Section headings ── */
+.section-title,
+h2.section-title {
+  font-size: var(--treasora-section) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.04em !important;
+}
+
+.newsletter .section-title,
+.pro-box .section-title {
+  font-size: var(--treasora-section-sm) !important;
+}
+
+/* ── Body & labels ── */
+.lead,
+.hero .lead,
+.hero p,
+.section-lead,
+.kicker {
+  font-size: var(--treasora-lead) !important;
+}
+
+.kicker {
+  font-size: var(--treasora-kicker) !important;
+}
+
+/* ── Cards & steps ── */
+.icon {
+  width: var(--treasora-icon) !important;
+  height: var(--treasora-icon) !important;
+  font-size: var(--treasora-icon-glyph) !important;
+}
+
+.card h3,
+.card-head h3,
+.step h3,
+.memory-head h3,
+.price-card h3 {
+  font-size: var(--treasora-card-title) !important;
+}
+
+.card p,
+.step p,
+.card a {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+.step strong {
+  font-size: var(--treasora-step-num) !important;
+}
+
+.panel h2 {
+  font-size: var(--treasora-panel-title) !important;
+}
+
+.panel p,
+.chat,
+.lock {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+/* ── Buttons ── */
+.btn,
+a.btn,
+button.btn {
+  min-height: var(--treasora-btn-height) !important;
+  font-size: var(--treasora-btn-text) !important;
+}
+
+/* ── Pricing ── */
+.price,
+.price-card .price,
+.price-tag {
+  font-size: var(--treasora-price) !important;
+}
+
+.price-card .plan-price-box .pa {
+  font-size: calc(var(--treasora-price) - 6px) !important;
+}
+
+li,
+.price-card li {
+  font-size: var(--treasora-body-sm) !important;
+}
+
+/* ── Spacing ── */
+.hero {
+  padding-top: var(--treasora-hero-pad-y) !important;
+}
+
+section {
+  padding-top: var(--treasora-section-pad-y) !important;
+  padding-bottom: var(--treasora-section-pad-y) !important;
+}
+
+.card,
+.step {
+  padding: var(--treasora-card-pad) !important;
+  min-height: 0 !important;
+}
+
+/* ── Phone: never enlarge icons/text (fixes old mobile overrides) ── */
+@media (max-width: 560px) {
+  .hero h1,
+  h1 {
+    font-size: var(--treasora-hero) !important;
+  }
+
+  .section-title,
+  h2.section-title {
+    font-size: var(--treasora-section) !important;
+  }
+
+  .newsletter .section-title,
+  .pro-box .section-title {
+    font-size: var(--treasora-section-sm) !important;
+  }
+
+  .icon {
+    width: var(--treasora-icon) !important;
+    height: var(--treasora-icon) !important;
+    font-size: var(--treasora-icon-glyph) !important;
+  }
+
+  .btn,
+  a.btn,
+  button.btn {
+    min-height: var(--treasora-btn-height) !important;
+    font-size: var(--treasora-btn-text) !important;
+  }
+
+  .card h2,
+  .card h3 {
+    font-size: var(--treasora-card-title) !important;
+  }
+}
