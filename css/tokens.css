@@ -16,7 +16,7 @@
   --treasora-body-sm: 14px;
   --treasora-lead: 16px;
   --treasora-kicker: 12px;
-  --treasora-nav: 13px;
+  --treasora-nav: 14px;
   --treasora-btn-text: 15px;
   --treasora-price: 32px;
 
@@ -50,12 +50,12 @@
     --treasora-body-sm: 14px;
     --treasora-lead: 14px;
     --treasora-kicker: 12px;
-    --treasora-nav: 12px;
+    --treasora-nav: 13px;
     --treasora-btn-text: 14px;
     --treasora-price: 28px;
 
     /* Components — phone */
-    --treasora-logo: 170px;
+    --treasora-logo: 185px;
     --treasora-icon: 38px;
     --treasora-icon-glyph: 18px;
     --treasora-btn-height: 44px;
