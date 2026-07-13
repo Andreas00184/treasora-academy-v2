@@ -1,5 +1,7 @@
 /* Treasora Academy — shared site styles */
+@import url("tokens.css");
 @import url("refine-scale.css");
+
 :root {
   --black: #020202;
   --black2: #070604;
@@ -20,16 +22,16 @@ header {
 }
 
 .header-inner {
-  padding: 16px 0 18px;
+  padding: var(--treasora-header-pad-y) 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: var(--treasora-header-gap);
 }
 
 .logo img {
   display: block;
-  width: 185px;
+  width: var(--treasora-logo);
   max-width: 72vw;
   height: auto;
   margin: 0 auto;
@@ -41,7 +43,7 @@ header {
 nav {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
   margin: 0;
 }
@@ -50,9 +52,9 @@ nav a {
   color: var(--muted);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
-  padding: 10px 14px;
-  min-height: 40px;
-  font-size: 14px;
+  padding: var(--treasora-nav-pad-y) var(--treasora-nav-pad-x);
+  min-height: var(--treasora-nav-height);
+  font-size: var(--treasora-nav);
   line-height: 1;
   display: inline-flex;
   align-items: center;
